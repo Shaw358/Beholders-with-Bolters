@@ -2,7 +2,7 @@ using Photon.Pun;
 
 public class ConnectToPhoton : MonoBehaviourPunCallbacks
 {
-    void Start()
+    public void ConnectToPhotonNetwork()
     {
         PhotonNetwork.ConnectUsingSettings();
     }

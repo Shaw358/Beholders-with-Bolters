@@ -1,17 +1,30 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ConnectToRoom : MonoBehaviour
+public class ConnectToRoom : MonoBehaviourPunCallbacks
 {
+    public bool isPlayer2;
+
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(RoomGeneration.CreateRandomStringID());
+        if (!isPlayer2)
+        {
+            PhotonNetwork.CreateRoom(/*RoomGeneration.CreateRandomStringID()*/"test");
+        }
     }
 
     public void JoinRoom(string roomID)
     {
-        PhotonNetwork.JoinRoom(roomID);
+        if (isPlayer2)
+        {
+            try
+            {
+                PhotonNetwork.JoinRoom(/*roomID*/"test");
+            }
+            catch
+            {
+                Debug.LogWarning("Room isn't ready yet");
+            }
+        }
     }
 }

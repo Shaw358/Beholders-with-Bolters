@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraFeed : MonoBehaviour
 {
     [SerializeField] Camera cam;
@@ -14,5 +13,11 @@ public class CameraFeed : MonoBehaviour
     public RenderTexture ReadImageFromCamera()
     {
         return cam.targetTexture;
+    }
+
+    public object GetImageFromCameraAsObject()
+    {
+        object frame = cam.targetTexture;
+        return frame;
     }
 }
