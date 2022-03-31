@@ -7,10 +7,10 @@ public class FlickeringLight : MonoBehaviour
     [SerializeField] float minIntensity;
     [SerializeField] float maxIntensity;
 
-    [SerializeField] Light light;
+    [SerializeField] Light _light;
 
     private void Update()
     {
-        light.intensity = Random.Range(minIntensity, maxIntensity);    
+        _light.intensity = Random.Range(minIntensity, maxIntensity);    
     }
 }
