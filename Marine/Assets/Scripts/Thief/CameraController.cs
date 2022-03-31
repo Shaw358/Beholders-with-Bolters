@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (canMove)
         {

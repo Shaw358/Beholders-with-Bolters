@@ -9,7 +9,7 @@ public class ThiefMovement : MonoBehaviour
 
     [SerializeField] private bool CanMove;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (CanMove)
         {
