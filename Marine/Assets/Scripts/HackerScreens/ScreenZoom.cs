@@ -13,6 +13,7 @@ public class ScreenZoom : MonoBehaviour
     private bool zoomedIn = false;
     private bool zoomingIn = false;
     private bool zoomingOut = false;
+    private bool turning = false;
     private bool switchingScreen = false;
     private float speed;
 
@@ -31,7 +32,7 @@ public class ScreenZoom : MonoBehaviour
         if (switchingScreen == true)
         {
             gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity, speed);
-            if (gameObject.transform.position == cameraPositions[currentScreen-1].transform.position)
+            if (gameObject.transform.position == cameraPositions[currentScreen - 1].transform.position)
             {
                 switchingScreen = false;
             }
@@ -47,12 +48,17 @@ public class ScreenZoom : MonoBehaviour
         if (zoomingOut == true)
         {
             gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity, speed);
-            //gameObject.transform.position = Vector3.Lerp(transform.position, cameraPositions[currentScreen - 1].transform.position, speed * Time.deltaTime);
             if (gameObject.transform.position == cameraPositions[currentScreen - 1].transform.position)
             {
                 zoomingOut = false;
             }
         }
+        //Turning If needed
+        if (turning == true)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, cameraPositions[currentScreen -1].transform.rotation.y , transform.rotation.z);
+        }
+
         if (Input.GetKeyUp(KeyCode.A) && currentScreen != 1)
         {
             currentScreen--;
