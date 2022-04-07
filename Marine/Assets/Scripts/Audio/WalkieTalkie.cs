@@ -38,8 +38,5 @@ public class WalkieTalkie : MonoBehaviour
     {
         //while walkie-talkie button is being held down timer keeps going else timer stops and saves for duration - reset timer after use
 
-        {
-
-        }    
     }
 }
