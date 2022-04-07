@@ -5,9 +5,15 @@ using ArsenalOfDemocracy.Weapons;
 public class WeaponData : ScriptableObject
 {
     public string weaponName;
+
     public int ammoPerMagazine;
     public int maxAmmo;
+
+    public int damage;
+    public int damageOnHeadshot;
+
     public float fireRate;
     public float recoil;
+
     public WeaponType weaponType;
 }

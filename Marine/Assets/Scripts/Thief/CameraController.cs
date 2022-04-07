@@ -21,20 +21,22 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void LateUpdate()
+    void Update()
     {
-        if (canMove)
+        if (!canMove)
         {
-            float mouseX = Input.GetAxis("Mouse X") * horizontalSpeed;
-            float mouseY = Input.GetAxis("Mouse Y") * verticalSpeed;
-
-            yRotation += mouseX;
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -85, 85);
-
-            _Player.transform.eulerAngles = new Vector3(0, yRotation, 0.0f);
-            _cam.transform.eulerAngles = new Vector3(xRotation, yRotation, 0.0f);
+            return;
         }
+
+        float mouseX = Input.GetAxis("Mouse X") * horizontalSpeed;
+        float mouseY = Input.GetAxis("Mouse Y") * verticalSpeed;
+
+        yRotation += mouseX;
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -85, 85);
+
+        _Player.transform.eulerAngles = new Vector3(0, yRotation, 0.0f);
+        _cam.transform.eulerAngles = new Vector3(xRotation, yRotation, 0.0f);
     }
 
     public void LockMovement(bool lockBool)

@@ -12,6 +12,12 @@ namespace ArsenalOfDemocracy
 
     namespace Gadgets
     {
-
+        public enum GadgetType
+        {
+            Drill,
+            Tag,
+            Lockpick,
+            WireCutter
+        }
     }
 }

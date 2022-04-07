@@ -2,5 +2,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public WeaponData data;
+    public virtual void Attack()
+    {
+    }
 }

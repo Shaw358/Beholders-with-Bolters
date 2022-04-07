@@ -9,7 +9,7 @@ public class ConnectToRoom : MonoBehaviourPunCallbacks
     {
         if (!isPlayer2)
         {
-            PhotonNetwork.CreateRoom(/*RoomGeneration.CreateRandomStringID()*/"test");
+            PhotonNetwork.CreateRoom(RoomGeneration.CreateRandomStringID());
         }
     }
 
