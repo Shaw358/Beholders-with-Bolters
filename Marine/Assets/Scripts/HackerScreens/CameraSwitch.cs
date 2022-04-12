@@ -4,32 +4,38 @@ using UnityEngine;
 
 public class CameraSwitch : MonoBehaviour
 {
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera cam;
+    [SerializeField] private RenderTexture render;
+    private int currentCamera;
     // Start is called before the first frame update
     
     void Start()
     {
         //Get the textured uploaded to channel and add it to camera
-        ///camera = rendertexture
+        currentCamera = 1; //replace 1 with actual camera index 0,1,2 or 3
+        cam.targetTexture = render;
     }
-
-    // Update is called once per frame
-    void Update()
+    public void CameraSwitchRight()
     {
-        CheckInput();
+        currentCamera++;
+        AdaptCamera();
     }
-
-    void CheckInput()
+    public void CameraSwitchLeft()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            
-            //Insert MP data request code
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
+        currentCamera--;
+        AdaptCamera();
+    }
+    void AdaptCamera()
+    {
+        cam.targetDisplay = currentCamera;
+        cam.targetTexture = render;
+    }
+    void RecieveCameraData()
+    {
 
-            //Insert MP data request code
-        }
+    }
+    void RequestCameraData()
+    {
+
     }
 }
