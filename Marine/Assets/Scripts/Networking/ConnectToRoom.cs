@@ -1,30 +1,64 @@
 using Photon.Pun;
 using UnityEngine;
+using ExitGames.Client.Photon;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class ConnectToRoom : MonoBehaviourPunCallbacks
 {
     public bool isPlayer2;
 
-    public void CreateRoom()
+    void Start()
+    {
+        ConnectToPhotonNetwork();
+    }
+
+    public void ConnectToPhotonNetwork()
+    {
+        PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinedLobby()
     {
         if (!isPlayer2)
         {
-            PhotonNetwork.CreateRoom(RoomGeneration.CreateRandomStringID());
+            CreateRoom();
+            return;
+        }
+        PhotonNetwork.JoinRoom(/*roomID*/"test");
+    }
+
+    public void CreateRoom()
+    {
+        PhotonNetwork.CreateRoom(/*RoomGeneration.CreateRandomStringID()*/ "test");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        if (!isPlayer2)
+        {
+            SceneManager.LoadScene("FpsBuildingScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("hacker");
         }
     }
 
-    public void JoinRoom(string roomID)
+    public void ChangeScene()
     {
-        if (isPlayer2)
+        try
         {
-            try
-            {
-                PhotonNetwork.JoinRoom(/*roomID*/"test");
-            }
-            catch
-            {
-                Debug.LogWarning("Room isn't ready yet");
-            }
+            SceneManager.LoadScene("hacker");
+        }
+        catch
+        {
+            Debug.LogWarning("Room isn't ready yet");
         }
     }
 }

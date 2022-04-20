@@ -5,14 +5,15 @@ using Photon.Pun;
 
 public class SecurityCameraManager : MonoBehaviour
 {
+    #region global vars
     [SerializeField] List<SecurityCamera> cameras = new List<SecurityCamera>();
     int currentEnabledCamera;
+    #endregion
 
     public void DisableCameraView(EventData eventData)
     {
         if (eventData.Code == NetworkingIDs.DISABLE_CAMERA)
         {
-            cameras[currentEnabledCamera].CancelInvoke();
             cameras[currentEnabledCamera].enabled = false;
         }
     }
@@ -29,13 +30,12 @@ public class SecurityCameraManager : MonoBehaviour
 
     public void SwitchCamera(EventData eventData)
     {
-        if (eventData.Code == NetworkingIDs.SWITCH_CAMERA)
+        if (eventData.Code == NetworkingIDs.SWITCH_CAMERA) //checks if event belongs to this function
         {
-            int cameraID = (int)eventData.CustomData;
+            int cameraID = (int)eventData.CustomData; //converts network data 
 
-            cameras[currentEnabledCamera].CancelInvoke();
-            cameras[currentEnabledCamera].enabled = false;
-
+            //TODO: include some sort of null condition checker for CustomData
+            cameras[currentEnabledCamera].enabled = false; //actually switches camera feed
             cameras[cameraID].enabled = true;
             currentEnabledCamera = cameraID;
         }
@@ -49,6 +49,7 @@ public class SecurityCameraManager : MonoBehaviour
         PhotonNetwork.NetworkingClient.EventReceived += SwitchCamera;
     }
 
+    //Remove subscribers
     private void OnDisable()
     {
         PhotonNetwork.NetworkingClient.EventReceived -= DisableCameraView;

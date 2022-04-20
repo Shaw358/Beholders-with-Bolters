@@ -17,31 +17,34 @@ public class SecurityCamera : MonoBehaviour
 
     RaiseEventOptions raiseEventOptions;
 
+    //--------------
+
+    [Header("Networking")]
+    [SerializeField] float cameraUpdateTime;
+    float timer;
+
+    //--------------
+
     private void Awake()
     {
         raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
         cameraFeed = GetComponentInChildren<CameraFeed>();
     }
-
-    public void StartSendingFrameData()
+    
+    private void Update()
     {
-        InvokeRepeating("SendFrameData", 0, .1f);
+        timer += Time.deltaTime;
+        if(timer > cameraUpdateTime)
+        {
+            SendFrameData();
+            timer = 0;
+        }
     }
 
     public void SendFrameData()
     {
         PhotonNetwork.RaiseEvent(NetworkingIDs.CAMERA_FEED, cameraFeed.GetImageFromCameraAsObject(), raiseEventOptions, SendOptions.SendUnreliable);
     }
-
-    /* NOTE: To be implemented later
-    public void ReceiveFrameData(EventData eventData)
-    {
-        if(eventData.Code == NetworkingIDs.CAMERA_FEED)
-        {
-            RenderTexture renderTexture = (RenderTexture)eventData.CustomData;
-        }
-    }
-    */
 
     public void StartCameraRotator()
     {

@@ -6,7 +6,6 @@ public class ThiefController : MonoBehaviour
 {
     [SerializeField] float walkingSpeed = 7.5f;
     [SerializeField] float runningSpeed = 11.5f;
-    [SerializeField] float jumpSpeed = 8.0f;
     [SerializeField] float gravity = 20.0f;
     [SerializeField] Camera playerCamera;
     [SerializeField] float lookSpeed = 2.0f;

@@ -9,7 +9,7 @@ public class ArsenalController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && canAttack)
+        /*if (Input.GetKey(KeyCode.Mouse0) && canAttack)
         {
             arsenal.UseCurrentWeapon();
             Attack();
@@ -29,7 +29,7 @@ public class ArsenalController : MonoBehaviour
         {
             fireRateTimer = 0;
             canAttack = true;
-        }
+        }*/
     }
 
     public void Attack()

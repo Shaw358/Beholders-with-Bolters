@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BuilderScenes/FpsBuildingScene.unity
-    guid: 3b2d4a3a08c268049a226d32cbd9c3b7
-  - enabled: 1
     path: Assets/Debugging/DebugSCene.unity
     guid: c56276747c1ecd946bc3469ee6e10fc6
   - enabled: 1
-    path: Assets/Scenes/BuilderScenes/MP test.unity
-    guid: b590c3dd7d04efc49afcf0ec44fd57f3
+    path: Assets/Scenes/BuilderScenes/FpsBuildingScene.unity
+    guid: 3b2d4a3a08c268049a226d32cbd9c3b7
+  - enabled: 1
+    path: Assets/Scenes/hacker.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
