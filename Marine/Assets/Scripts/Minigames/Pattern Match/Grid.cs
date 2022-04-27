@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    [SerializeField] private LineRenderer renderer;
     private Vector3 worldpos;
-    public void GetLine(int pointInt)
-    {
-        //Draw a line every frame between the pressed button and the cursor.
-        renderer.SetPosition(1, transform.position);
-        renderer.SetPosition(2, worldpos);
-        renderer.endWidth = 500;
-        renderer.startWidth = 500;
+    private GameObject currentButton;
+    [SerializeField] private LineRenderer render;
 
-        Debug.Log("The point number " + pointInt + " has been pressed");
+    public void GetLine(GameObject currentButtonNumb)
+    {
+        currentButton = currentButtonNumb;
     }
     private void Update()
     {
-        worldpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        worldpos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        render.SetPosition(0, worldpos);
+        if (currentButton != null)
+        {
+            Debug.Log(worldpos);
+            render.SetPosition(1, currentButton.transform.position);
+        }
     }
 }
