@@ -19,7 +19,12 @@ public class Door : InteractableBase
     }
 
     [SerializeField] Animator animator;
-    bool isOpen;
+    [SerializeField] bool isOpen;
+
+    private void Start()
+    {
+        CanInteract = true;
+    }
 
     public override void Interact()
     {
@@ -36,7 +41,7 @@ public class Door : InteractableBase
         else
         {
             isOpen = false;
-            //animator.Play("CloseDoor");
+            animator.Play("DoorClosing", 0);
         }
         StartCoroutine(DoorAnimationCoolDown());
     }

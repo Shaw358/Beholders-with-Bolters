@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class MinigameTrigger : InteractableBase
 {
-    MinigameType type;
+    [SerializeField] MinigameType type;
     [Header("On succesful minigame completion")]
     [SerializeField] UnityEvent onSuccesfulMinigame;
 
@@ -20,6 +20,4 @@ public class MinigameTrigger : InteractableBase
             //TODO: trigger stuff
         }
     }
-
-    
 }
