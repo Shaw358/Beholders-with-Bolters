@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractableBase : MonoBehaviour
 {
     protected virtual bool canInteract { get; set; }
-    [SerializeField] private GameObject InteractVisualFeedback;
+    [SerializeField] private GameObject[] InteractVisualFeedback;
     [SerializeField] protected bool canShowInteractButton;
 
     public virtual void Interact()
@@ -12,12 +12,22 @@ public class InteractableBase : MonoBehaviour
 
     public void EnableInteractButton()
     {
-        if (canShowInteractButton)
-            InteractVisualFeedback.SetActive(true);
+        if (!canShowInteractButton)
+        {
+            return;
+        }
+        foreach (GameObject item in InteractVisualFeedback)
+        {
+            item.SetActive(true);
+        }
+
     }
 
     public void DisableInteractButton()
     {
-        InteractVisualFeedback.SetActive(false);
+        foreach (GameObject item in InteractVisualFeedback)
+        {
+            item.SetActive(false);
+        }
     }
 }

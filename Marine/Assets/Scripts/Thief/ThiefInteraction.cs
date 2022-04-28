@@ -17,13 +17,10 @@ public class ThiefInteraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Why");
         if (other.gameObject.tag == TagConsts.interactableTag)
         {
-            Debug.Log("Why2");
             currentInteractable = other.GetComponent<InteractableBase>();
             currentInteractable.EnableInteractButton();
-            Debug.Log(currentInteractable.gameObject.name);
         }
     }
 
@@ -31,7 +28,6 @@ public class ThiefInteraction : MonoBehaviour
     {
         if (currentInteractable)
         {
-            Debug.Log(currentInteractable.gameObject.name);
             currentInteractable.DisableInteractButton();
             currentInteractable = null;
         }
