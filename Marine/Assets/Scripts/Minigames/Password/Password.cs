@@ -17,10 +17,8 @@ public class Password : MonoBehaviour
     private void Start()
     {
         puzzleInt = Random.Range(0, usernames.Length);
+        correctPassword = passwords[puzzleInt];
         usernamefield.text = usernames[puzzleInt];
-        correctPassword = passwords[puzzleInt];    
-
-
     }
 
     public void CheckPassword()
