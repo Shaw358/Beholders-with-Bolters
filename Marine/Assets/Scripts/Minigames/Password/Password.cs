@@ -7,7 +7,7 @@ using TMPro;
 public class Password : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI usernamefield;
-    [SerializeField] private TextMeshProUGUI passwordfield;
+    [SerializeField] private TMP_InputField passwordfield;
     private string correctPassword;
     private string enteredPassword;
     private string[] passwords = new string[] { "password", "wordpass", "number", "derulo", "davinci" };
@@ -18,20 +18,23 @@ public class Password : MonoBehaviour
     {
         puzzleInt = Random.Range(0, usernames.Length);
         usernamefield.text = usernames[puzzleInt];
-        correctPassword = passwords[puzzleInt];    
-
+        correctPassword = passwords[puzzleInt];
+        Debug.Log(correctPassword);
 
     }
 
     public void CheckPassword()
     {
         enteredPassword = passwordfield.text;
-        if (enteredPassword == correctPassword)
+        if (enteredPassword == correctPassword && correctPassword != null)
         {
             //Display Green Checkmark - Image
-
+            Debug.Log("Correct");
         }
-
+        else
+        {
+            //Shake
+        }
     }
 
 }

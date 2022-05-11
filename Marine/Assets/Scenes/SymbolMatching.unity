@@ -152,9 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa5e32576ae035429b56c03d7674b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbol1: {fileID: 0}
-  symbol2: {fileID: 0}
-  symbol3: {fileID: 0}
+  symbols:
+  - {fileID: 1698234538524360345, guid: 2929dfbd5a7dcd64ebe38ccc0449254d, type: 3}
+  - {fileID: 7931693710418110748, guid: 94d3ecdd3994bdc479b1bc7e03d4977b, type: 3}
+  - {fileID: 4018139321486392399, guid: 080f4007a31dd8a48b123fa508c91839, type: 3}
+  canvas: {fileID: 955583511}
 --- !u!4 &242220993
 Transform:
   m_ObjectHideFlags: 0
@@ -162,13 +164,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242220991}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 626.94635, y: 330.16187, z: -3.9671314}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1373054851}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &955583511
 GameObject:
@@ -184,7 +186,7 @@ GameObject:
   - component: {fileID: 955583512}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -418,7 +420,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 242220993}
   m_Father: {fileID: 955583515}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

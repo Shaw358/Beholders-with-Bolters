@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SymbolMatching : MonoBehaviour
 {
-    [SerializeField] private GameObject symbol1;
-    [SerializeField] private GameObject symbol2;
-    [SerializeField] private GameObject symbol3;
+    [SerializeField] private GameObject[] symbols;
+    [SerializeField] private GameObject canvas;
     public void CorrectAnswer()
     {
         //insert Green Checkmark 
@@ -20,11 +19,15 @@ public class SymbolMatching : MonoBehaviour
     private void Start()
     {
         //1st hardcoded symbol -> X pos to left
-        Instantiate(symbol1, new Vector3(symbol1.transform.position.x - 15, symbol1.transform.position.y, symbol1.transform.position.z), symbol1.transform.rotation);
-        //2nd hardcoded symbol -> center
-        Instantiate(symbol2);
-        //3rd hardcoded symbol -> X pos to right
-        Instantiate(symbol3, new Vector3(symbol3.transform.position.x + 15, symbol3.transform.position.y, symbol3.transform.position.z), symbol3.transform.rotation);
-    }
 
+        GameObject Symbol1 = Instantiate(symbols[0], new Vector3(symbols[0].transform.position.x - 200, symbols[0].transform.position.y, symbols[0].transform.position.z), Quaternion.identity) as GameObject;
+        //2nd hardcoded symbol -> center
+        GameObject Symbol2 = Instantiate(symbols[1]) as GameObject;
+        //3rd hardcoded symbol -> X pos to right
+        GameObject Symbol3 = Instantiate(symbols[2], new Vector3(symbols[2].transform.position.x + 200, symbols[2].transform.position.y, symbols[2].transform.position.z), Quaternion.identity) as GameObject;
+
+        Symbol1.transform.SetParent(canvas.transform, false);
+        Symbol2.transform.SetParent(canvas.transform, false);
+        Symbol3.transform.SetParent(canvas.transform, false);
+    }
 }

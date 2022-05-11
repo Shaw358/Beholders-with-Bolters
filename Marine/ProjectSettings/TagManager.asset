@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UsernameTxtField
   - PasswordTxtField
+  - Canvas
   layers:
   - Default
   - TransparentFX

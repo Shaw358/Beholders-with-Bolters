@@ -11,7 +11,7 @@ public class ImageOnClick : MonoBehaviour
     /// lazy lol
     /// </summary>
     [SerializeField] bool correctAnswer;
-    [SerializeField] SymbolMatching manager;
+    SymbolMatching manager;
 
     private void Start()
     {
