@@ -13,7 +13,6 @@ public class ScreenZoom : MonoBehaviour
     private bool zoomedIn;
     private bool zoomingIn;
     private bool zoomingOut;
-    private bool turning;
     private bool switchingScreen;
     private float speed;
     private float distFromDest;
@@ -37,10 +36,9 @@ public class ScreenZoom : MonoBehaviour
         switch (zoomedIn)
         {
             case false:
-                gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen + 2].transform.position, ref velocity, speed);
-                distFromDest = transform.position.z - cameraPositions[currentScreen + 2].transform.position.z;
-
-                Debug.Log(distFromDest);
+                Debug.Log(zoomedIn + " " + currentScreen + " SZ1");
+                gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity,speed);
+                distFromDest = transform.position.z - cameraPositions[currentScreen - 1].transform.position.z;
                 if (Mathf.Abs(distFromDest) <= .1f)
                 {
                     zoomingIn = false;
@@ -48,10 +46,10 @@ public class ScreenZoom : MonoBehaviour
                 }
                 break;
             case true:
-                gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity, speed);
+                Debug.Log(zoomedIn + " SZ2");
+                gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity,speed);
                 distFromDest = transform.position.z - cameraPositions[currentScreen - 1].transform.position.z;
-                Debug.Log(distFromDest);
-                if (Mathf.Abs(distFromDest) <= .5f)
+                if (Mathf.Abs(distFromDest) <= .05f)
                 {
                     zoomingOut = false;
                     zoomedIn = false;
@@ -59,33 +57,21 @@ public class ScreenZoom : MonoBehaviour
                 break;
         }
     }
-    private void SmoothTurn()
+    private void Move()
     {
-        //Turn to screen
-        if (turning == false)
+        if (switchingScreen)
         {
-            return;
-        }
-        gameObject.transform.rotation = Quaternion.Euler(transform.rotation.x, cameraPositions[currentScreen - 1].transform.rotation.y, transform.rotation.z);
-
-    }
-    private void SideMovement()
-    {
-        if (switchingScreen == false)
-        {
-            return;
-        }
-        distFromDest = transform.position.x - cameraPositions[currentScreen - 1].transform.position.x;
-
-        if (Mathf.Abs(distFromDest) <= .3f)
-        {
-            switchingScreen = false;
-        }
-        else
-        {
+            Debug.Log(switchingScreen + " " + zoomingIn + " " + zoomingOut + " Move");
+            gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, cameraPositions[currentScreen - 1].transform.rotation,speed + .5f);
             gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity, speed);
+            distFromDest = transform.rotation.y - cameraPositions[currentScreen - 1].transform.rotation.y;
+            if (Mathf.Abs(distFromDest) <= .0001f)
+            {
+                switchingScreen = false;
+            }
         }
     }
+
     private void CheckInput()
     {
         if (Input.GetKeyDown(KeyCode.A) && currentScreen != 1)
@@ -94,24 +80,22 @@ public class ScreenZoom : MonoBehaviour
             switchingScreen = true;
         }
         else if (Input.GetKeyDown(KeyCode.D) && currentScreen != 3)
-        {
+        { 
             currentScreen++;
             switchingScreen = true;
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
-            Debug.Log("Load1");
             if (!zoomingIn && !zoomingOut)
             {
-                Debug.Log("Load2");
                 if (zoomedIn)
                 {
-                    Debug.Log("Load3");
+                    currentScreen -= 3;
                     zoomingOut = true;
                 }
                 else
                 {
-                    Debug.Log("Load4");
+                    currentScreen += 3;
                     zoomingIn = true;
                 }
             }
@@ -121,9 +105,8 @@ public class ScreenZoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SmoothTurn();
-        SideMovement();
-        SmoothZoom();
         CheckInput();
+        Move();
+        SmoothZoom();
     }
 }

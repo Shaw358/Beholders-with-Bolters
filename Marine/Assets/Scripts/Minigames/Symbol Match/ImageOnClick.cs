@@ -15,7 +15,6 @@ public class ImageOnClick : MonoBehaviour
 
     private void Start()
     {
-       
         manager = GameObject.Find("MinigameManager").GetComponent<SymbolMatching>();
     }
     private void OnMouseDown()
