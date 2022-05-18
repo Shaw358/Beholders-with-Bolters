@@ -29,7 +29,19 @@ public class SecurityGuard : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            //TODO: Death anim
+            gAnimator.PlayAnimation("Alarmed");
         }
+    }
+
+    private IEnumerator EnablePickupable()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(gAnimator.GetAnimationLengthInSeconds());
+        GetComponent<PickUpable>().TurnOnCanInteract();
+    }
+
+    public void PlayAlarmAnimation()
+    {
+        gAnimator.PlayAnimation("Alarmed");
     }
 }

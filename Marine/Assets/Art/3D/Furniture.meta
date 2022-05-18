@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Marine/Assets/Art/3D/Furniture.meta
 guid: 5e43c20f48d2199458e28574fe8cefae
 folderAsset: yes
+========
+guid: c8e60bee1f6e5f44b939bff120f92903
+>>>>>>>> Main-Gameplay-Loop:Marine/Assets/Art/Shaders/Cellshader Final.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
