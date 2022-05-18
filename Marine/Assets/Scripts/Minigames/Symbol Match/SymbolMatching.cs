@@ -21,7 +21,6 @@ public class SymbolMatching : MonoBehaviour
     }
     public void CalltoAction()
     {
-        GetComponent<MinigameManager>().SymbolMatchingPuzzle(clearToStart);
     }
 
     private void Start()
