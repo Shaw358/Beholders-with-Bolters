@@ -1933,7 +1933,7 @@ SpriteRenderer:
   m_Size: {x: 5.1, y: 5.1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &659280947 stripped
@@ -5524,6 +5524,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4024649038080861325, guid: bcd2e24646894a448b1f5e6735f85ee4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: da1e4e53b3fc87f48a103141c1a2dadf, type: 2}
     - target: {fileID: 4781793315966856422, guid: bcd2e24646894a448b1f5e6735f85ee4, type: 3}
       propertyPath: m_Name
       value: Thief
@@ -5906,6 +5910,7 @@ MonoBehaviour:
   - {fileID: 0}
   canShowInteractButton: 0
   animator: {fileID: 1157105509}
+  isOpen: 0
 --- !u!65 &7698029536008491475
 BoxCollider:
   m_ObjectHideFlags: 0

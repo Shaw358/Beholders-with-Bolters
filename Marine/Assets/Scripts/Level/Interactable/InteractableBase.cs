@@ -20,7 +20,6 @@ public class InteractableBase : MonoBehaviour
         {
             item.SetActive(true);
         }
-
     }
 
     public void DisableInteractButton()
@@ -29,5 +28,10 @@ public class InteractableBase : MonoBehaviour
         {
             item.SetActive(false);
         }
+    }
+
+    public void TurnOnCanInteract()
+    {
+        canInteract = true;
     }
 }

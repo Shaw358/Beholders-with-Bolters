@@ -20,9 +20,21 @@ public class GuardMovement : MonoBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] GuardState currentState;
 
-    private void Start()
+    public bool CanWalk
     {
-        StartCoroutine(RotatedTowards(currentWaypoint.position));
+        get
+        {
+            return canWalk;
+        }
+    }
+
+    private void Awake()
+    {
+        if (currentWaypoint)
+        {
+            StartCoroutine(RotatedTowards(currentWaypoint.position));
+        }
+        currentWaypoint = currentRoute.GetWaypoint(0);
     }
 
     private void Update()
@@ -32,7 +44,6 @@ public class GuardMovement : MonoBehaviour
             return;
         }
 
-        //TODO: Move guard
         if (canWalk)
         {
             switch (currentState)
@@ -69,6 +80,10 @@ public class GuardMovement : MonoBehaviour
         {
             canWalk = false;
         }
+        else
+        {
+            rotationSpeed *= .4f;
+        }
 
         //Rotation of obj
         while (angle > threshold)
@@ -77,7 +92,6 @@ public class GuardMovement : MonoBehaviour
             angle = Quaternion.Angle(transform.rotation, targetRotation);
             yield return null;
         }
-        Debug.Log("why");
         canWalk = true;
     }
 

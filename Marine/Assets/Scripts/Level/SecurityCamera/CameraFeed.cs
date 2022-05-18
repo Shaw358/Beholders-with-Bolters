@@ -3,21 +3,16 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraFeed : MonoBehaviour
 {
-    [SerializeField] Camera cam;
-
-    private void Awake()
-    {
-        cam = GetComponentInChildren<Camera>();
-    }
+    [SerializeField] RenderTexture cam;
 
     public RenderTexture ReadImageFromCamera()
     {
-        return cam.targetTexture;
+        return cam;
     }
 
     public object GetImageFromCameraAsObject()
     {
-        object frame = cam.targetTexture;
+        object frame = cam;
         return frame;
     }
 }

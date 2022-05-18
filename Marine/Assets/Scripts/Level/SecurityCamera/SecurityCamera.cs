@@ -7,7 +7,7 @@ using ExitGames.Client.Photon;
 public class SecurityCamera : MonoBehaviour
 {
     public int cameraID;
-    CameraFeed cameraFeed;
+    [SerializeField] CameraFeed cameraFeed;
     public bool cameraFeedEnabled { get; private set; }
 
     [SerializeField] float minRotAngle;
@@ -23,12 +23,13 @@ public class SecurityCamera : MonoBehaviour
     [SerializeField] float cameraUpdateTime;
     float timer;
 
+    [SerializeField] UpdateScreen screen;
+
     //--------------
 
     private void Awake()
     {
         raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
-        cameraFeed = GetComponentInChildren<CameraFeed>();
     }
     
     private void Update()
