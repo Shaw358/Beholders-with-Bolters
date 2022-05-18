@@ -6,48 +6,22 @@ using System.Collections;
 
 public class ConnectToRoom : MonoBehaviourPunCallbacks
 {
-    public bool isPlayer2;
-
-    void Start()
-    {
-        ConnectToPhotonNetwork();
-    }
-
-    public void ConnectToPhotonNetwork()
-    {
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinLobby();
-    }
+    RoomIDGeneration generation;
 
     public override void OnJoinedLobby()
     {
-        if (!isPlayer2)
-        {
-            CreateRoom();
-            return;
-        }
         PhotonNetwork.JoinRoom(/*roomID*/"test");
     }
 
     public void CreateRoom()
     {
-        PhotonNetwork.CreateRoom(/*RoomGeneration.CreateRandomStringID()*/ "test");
+        generation.CreateRandomStringID();
+        PhotonNetwork.CreateRoom(generation.ID);
     }
 
     public override void OnJoinedRoom()
     {
-        if (!isPlayer2)
-        {
-            SceneManager.LoadScene("FpsBuildingScene");
-        }
-        else
-        {
-            SceneManager.LoadScene("hacker");
-        }
+
     }
 
     public void ChangeScene()

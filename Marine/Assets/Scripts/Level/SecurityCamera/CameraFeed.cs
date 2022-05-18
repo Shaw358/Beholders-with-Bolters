@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
 public class CameraFeed : MonoBehaviour
 {
     [SerializeField] RenderTexture cam;

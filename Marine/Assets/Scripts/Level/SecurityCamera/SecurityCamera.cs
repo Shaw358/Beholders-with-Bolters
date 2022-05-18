@@ -23,21 +23,24 @@ public class SecurityCamera : MonoBehaviour
     [SerializeField] float cameraUpdateTime;
     float timer;
 
-    [SerializeField] UpdateScreen screen;
-
     //--------------
 
     private void Awake()
     {
         raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
     }
-    
+
+    private void Start()
+    {
+        StartCoroutine(Rotator());
+    }
+
     private void Update()
     {
         timer += Time.deltaTime;
-        if(timer > cameraUpdateTime)
+        if (timer > cameraUpdateTime)
         {
-            SendFrameData();
+            //SendFrameData();
             timer = 0;
         }
     }
@@ -56,34 +59,37 @@ public class SecurityCamera : MonoBehaviour
     {
         bool rotatingClockwise = false;
 
-        float startRot = 0;
-        float targetRot = 0;
+        float startRot = minRotAngle;
+        float targetRot = maxRotAngle;
 
         float elapsedTime = 0;
 
         while (true)
         {
-            while (elapsedTime >= rotationDuration)
+            while (elapsedTime <= rotationDuration)
             {
-                transform.eulerAngles = new Vector3(Mathf.Lerp(startRot, targetRot, elapsedTime / rotationDuration), transform.eulerAngles.y, transform.eulerAngles.z);
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, Mathf.Lerp(startRot, targetRot, elapsedTime / rotationDuration), transform.eulerAngles.z);
                 elapsedTime += Time.deltaTime;
 
+                if (elapsedTime >= rotationDuration)
+                {
+                    elapsedTime = 0;
+                    if (rotatingClockwise)
+                    {
+                        startRot = minRotAngle;
+                        targetRot = maxRotAngle;
+                        rotatingClockwise = false;
+                    }
+                    else
+                    {
+                        startRot = maxRotAngle;
+                        targetRot = minRotAngle;
+                        rotatingClockwise = true;
+                    }
+                }
                 yield return null;
             }
-            elapsedTime = 0;
-
-            yield return new WaitForSeconds(rotationBreak);
-
-            if(rotatingClockwise)
-            {
-                startRot = minRotAngle;
-                targetRot = maxRotAngle;
-            }
-            else
-            {
-                startRot = maxRotAngle;
-                targetRot = minRotAngle;
-            }
+            yield return null;
         }
     }
 }
