@@ -11,10 +11,15 @@ public class UpdateScreen : MonoBehaviour
     {
         if (eventData.Code == NetworkingIDs.CAMERA_FEED)
         {
-            RenderTexture renderTexture = (RenderTexture)eventData.CustomData;
-            renderTexture.Create();
+            Texture2D tex = new Texture2D(250, 250, TextureFormat.RGBA32, false);
 
-            _renderer.texture = ToTexture2D(renderTexture);
+            tex.LoadRawTextureData((byte[])eventData.CustomData);
+            tex.Apply();
+
+            //RenderTexture renderTexture = (RenderTexture)eventData.CustomData;
+            //renderTexture.Create();
+
+            _renderer.texture = tex;//ToTexture2D(renderTexture);
         }
     }
 
@@ -26,15 +31,5 @@ public class UpdateScreen : MonoBehaviour
     private void OnDisable()
     {
         PhotonNetwork.NetworkingClient.EventReceived -= ReceiveFrameData;
-    }
-
-    Texture2D ToTexture2D(RenderTexture rTex)
-    {
-        Texture2D tex = new(512, 512, TextureFormat.RGB24, false);
-        // ReadPixels looks at the active RenderTexture.
-        RenderTexture.active = rTex;
-        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
-        tex.Apply();
-        return tex;
     }
 }

@@ -17,7 +17,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void LaunchGame()
     {
-        PhotonNetwork.RaiseEvent(NetworkingIDs.CAMERA_FEED, isHacker, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        PhotonNetwork.RaiseEvent(NetworkingIDs.LOBBY_MENU, isHacker, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
         if (isHacker)
         {
             SceneManager.LoadScene("hacker");
