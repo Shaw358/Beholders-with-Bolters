@@ -16,6 +16,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void LaunchGame()
     {
+        Debug.Log(PhotonNetwork.CountOfPlayersOnMaster);
         if(PhotonNetwork.CountOfPlayersOnMaster == 2)
         {
             if(isHacker)
