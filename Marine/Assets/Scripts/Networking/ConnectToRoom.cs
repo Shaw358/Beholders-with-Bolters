@@ -1,16 +1,19 @@
 using Photon.Pun;
 using UnityEngine;
-using ExitGames.Client.Photon;
+using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Events;
 
 public class ConnectToRoom : MonoBehaviourPunCallbacks
 {
-    RoomIDGeneration generation;
+    public RoomIDGeneration generation = new RoomIDGeneration();
+    [SerializeField] UnityEvent action;
+    [SerializeField] TMP_InputField field;
 
-    public override void OnJoinedLobby()
+    public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(/*roomID*/"test");
+        PhotonNetwork.JoinRoom(field.text);
     }
 
     public void CreateRoom()
@@ -21,18 +24,6 @@ public class ConnectToRoom : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-
-    }
-
-    public void ChangeScene()
-    {
-        try
-        {
-            SceneManager.LoadScene("hacker");
-        }
-        catch
-        {
-            Debug.LogWarning("Room isn't ready yet");
-        }
+        action.Invoke();
     }
 }

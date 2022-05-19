@@ -1,7 +1,16 @@
 using Photon.Pun;
+using TMPro;
+using UnityEngine;
 
 public class ConnectToPhoton : MonoBehaviourPunCallbacks
 {
+    [SerializeField] TextMeshProUGUI cofirmText;
+
+    private void Start()
+    {
+        ConnectToPhotonNetwork();
+    }
+
     public void ConnectToPhotonNetwork()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -14,6 +23,6 @@ public class ConnectToPhoton : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-
+        cofirmText.text = "Server status: OK";
     }
 }
