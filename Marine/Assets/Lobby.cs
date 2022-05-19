@@ -40,6 +40,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         if (eventData.Code == NetworkingIDs.LOBBY_MENU)
         {
+            Debug.Log("Heh wat jammer");
             textMeshReturnStatus.text = "Call received";
             bool IsHacker = (bool)eventData.CustomData;
             if (!IsHacker)
