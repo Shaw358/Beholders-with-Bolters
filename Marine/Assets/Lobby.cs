@@ -9,6 +9,11 @@ public class Lobby : MonoBehaviourPunCallbacks
     bool isHacker;
     [SerializeField] TextMeshProUGUI textMeshReturnStatus;
 
+    public void ChangePlayerType(bool type)
+    {
+        isHacker = type;
+    }
+
     public void LaunchGame()
     {
         if(PhotonNetwork.CountOfPlayersOnMaster == 2)
