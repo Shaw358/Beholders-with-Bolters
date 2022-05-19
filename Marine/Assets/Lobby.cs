@@ -17,22 +17,14 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void LaunchGame()
     {
-        Debug.Log(PhotonNetwork.CountOfPlayersOnMaster);
-        if (PhotonNetwork.CountOfPlayersInRooms == 2)
+        PhotonNetwork.RaiseEvent(NetworkingIDs.CAMERA_FEED, isHacker, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        if (isHacker)
         {
-            PhotonNetwork.RaiseEvent(NetworkingIDs.CAMERA_FEED, isHacker, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
-            if (isHacker)
-            {
-                SceneManager.LoadScene("hacker");
-            }
-            else
-            {
-                SceneManager.LoadScene("BankLevel");
-            }
+            SceneManager.LoadScene("hacker");
         }
         else
         {
-            ReturnStatus();
+            SceneManager.LoadScene("BankLevel");
         }
     }
 
