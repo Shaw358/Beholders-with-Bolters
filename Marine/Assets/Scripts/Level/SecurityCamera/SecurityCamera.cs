@@ -13,7 +13,7 @@ public class SecurityCamera : MonoBehaviour
     [SerializeField] float minRotAngle;
     [SerializeField] float maxRotAngle;
     [SerializeField] float rotationDuration;
-    [SerializeField] float rotationBreak;
+    [SerializeField] public bool isActive;
 
     RaiseEventOptions raiseEventOptions;
 
@@ -37,10 +37,15 @@ public class SecurityCamera : MonoBehaviour
 
     private void Update()
     {
+        if(!isActive)
+        {
+            return;
+        }
+
         timer += Time.deltaTime;
         if (timer > cameraUpdateTime)
         {
-            //SendFrameData();
+            SendFrameData();
             timer = 0;
         }
     }

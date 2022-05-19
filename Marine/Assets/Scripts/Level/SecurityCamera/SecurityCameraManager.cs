@@ -14,7 +14,7 @@ public class SecurityCameraManager : MonoBehaviour
     {
         if (eventData.Code == NetworkingIDs.DISABLE_CAMERA)
         {
-            cameras[currentEnabledCamera].enabled = false;
+            cameras[currentEnabledCamera].isActive = false;
         }
     }
 
@@ -23,7 +23,7 @@ public class SecurityCameraManager : MonoBehaviour
         if (eventData.Code == NetworkingIDs.ENABLE_CAMERA)
         {
             int cameraID = (int)eventData.CustomData;
-            cameras[cameraID].enabled = true;
+            cameras[cameraID].isActive = true;
             currentEnabledCamera = cameraID;
         }
     }
@@ -35,8 +35,8 @@ public class SecurityCameraManager : MonoBehaviour
             int cameraID = (int)eventData.CustomData; //converts network data 
 
             //TODO: include some sort of null condition checker for CustomData
-            cameras[currentEnabledCamera].enabled = false; //actually switches camera feed
-            cameras[cameraID].enabled = true;
+            cameras[currentEnabledCamera].isActive = false; //actually switches camera feed
+            cameras[cameraID].isActive = true;
             currentEnabledCamera = cameraID;
         }
     }

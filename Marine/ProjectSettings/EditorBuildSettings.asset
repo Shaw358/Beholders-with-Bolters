@@ -6,15 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BuilderScenes/SecurityGuard.unity
-    guid: 33dbc349229540344af3e7de418ad875
-  - enabled: 0
-    path: Assets/Debugging/DebugSCene.unity
-    guid: c56276747c1ecd946bc3469ee6e10fc6
-  - enabled: 0
-    path: Assets/Scenes/BuilderScenes/FpsBuildingScene.unity
-    guid: 3b2d4a3a08c268049a226d32cbd9c3b7
-  - enabled: 0
+    path: Assets/Scenes/Assembly/MainMenu.unity
+    guid: 6d762d4903adbf7479f5f550295adde6
+  - enabled: 1
     path: Assets/Scenes/hacker.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Assembly/BankLevel.unity
+    guid: 99dcbcfa4576b2d4f8ace082a7f4a944
   m_configObjects: {}
