@@ -3,6 +3,7 @@ using Photon.Pun;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using ExitGames.Client.Photon;
 
 public class Lobby : MonoBehaviourPunCallbacks
 {
@@ -17,9 +18,10 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void LaunchGame()
     {
         Debug.Log(PhotonNetwork.CountOfPlayersOnMaster);
-        if(PhotonNetwork.CountOfPlayersOnMaster == 2)
+        if (PhotonNetwork.CountOfPlayersInRooms == 2)
         {
-            if(isHacker)
+            PhotonNetwork.RaiseEvent(NetworkingIDs.CAMERA_FEED, isHacker, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            if (isHacker)
             {
                 SceneManager.LoadScene("hacker");
             }
@@ -34,11 +36,37 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+    public void ReceiveLaunchGame(EventData eventData)
+    {
+        if (eventData.Code == NetworkingIDs.LOBBY_MENU)
+        {
+            bool IsHacker = (bool)eventData.CustomData;
+            if (!IsHacker)
+            {
+                SceneManager.LoadScene("hacker");
+            }
+            else
+            {
+                SceneManager.LoadScene("BankLevel");
+            }
+        }
+    }
+
     public void ReturnStatus()
     {
-        if(PhotonNetwork.CountOfPlayersOnMaster == 2)
+        if (PhotonNetwork.CountOfPlayersOnMaster == 2)
         {
             textMeshReturnStatus.text = "Amount of players are incorrect";
         }
+    }
+
+    public override void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += ReceiveLaunchGame;
+    }
+
+    public override void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= ReceiveLaunchGame;
     }
 }
