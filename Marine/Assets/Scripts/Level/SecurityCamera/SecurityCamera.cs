@@ -41,17 +41,18 @@ public class SecurityCamera : MonoBehaviour
         {
             return;
         }
+        SendFrameData();
 
-        timer += Time.deltaTime;
-        if (timer > cameraUpdateTime)
-        {
-            SendFrameData();
-            timer = 0;
-        }
+        //timer += Time.deltaTime;
+        //if (timer > cameraUpdateTime)
+        //{
+         //   timer = 0;
+        //}
     }
 
     public void SendFrameData()
     {
+        Debug.Log("bruh");
         PhotonNetwork.RaiseEvent(NetworkingIDs.CAMERA_FEED, cameraFeed.GetImageFromCameraAsObject(), raiseEventOptions, SendOptions.SendUnreliable);
     }
 
