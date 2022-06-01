@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: WeaponData
   m_EditorClassIdentifier: 
   weaponName: MachinePistole
-  ammoPerMagazine: 30
-  maxAmmo: 300
+  ammoPerMagazine: 15
+  currentAmmo: 15
+  maxAmmo: -161
   damage: 45
   damageOnHeadshot: 120
-  fireRate: 1
+  fireRate: 0.6
   recoil: 0
   weaponType: 1

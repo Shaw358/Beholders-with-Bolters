@@ -2,18 +2,35 @@ using UnityEngine;
 
 public class FireArm : Weapon
 {
+    [SerializeField] AudioClip[] clips;
+    [SerializeField] AudioSource weaponSFX;
+    [SerializeField] ParticleSystem muzzleEffect;
     [SerializeField] Camera firepoint;
 
     public override void Attack()
     {
         RaycastHit hit;
-        Physics.Raycast(firepoint.transform.position, firepoint.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity/* NOTE: To be implemented when guards are around, 1 << LayerMask.NameToLayer("Guard")*/);
+        Physics.Raycast(firepoint.transform.position, firepoint.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity);
 
-        Debug.Log(hit.transform.gameObject.name);
-
-        if (hit.transform.TryGetComponent(out Transform name))
+        muzzleEffect.Play();
+        weaponSFX.PlayOneShot(clips[0]);
+        try
         {
-            //TODO: Guard stuff
+            Debug.Log("1");
+            if (hit.transform.TryGetComponent(out SecurityGuard name))
+            {
+                Debug.Log("2");
+                name.DecreaseHealth(50);
+            }
         }
+        catch
+        {
+            Debug.Log("No bullets fly");
+        }
+    }
+
+    public override void PlayReloadSFX()
+    {
+        weaponSFX.PlayOneShot(clips[1]);
     }
 }

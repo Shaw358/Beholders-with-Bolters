@@ -1,8 +1,14 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class SecurityGuardVision : MonoBehaviour
 {
+    [SerializeField] GameObject questionMark;
+    [SerializeField] GameObject exclamationMark;
+
+    [SerializeField] AudioSource guardNotice;
+
     [SerializeField] float viewRadius;
     [SerializeField] float viewAngle;
 
@@ -11,6 +17,11 @@ public class SecurityGuardVision : MonoBehaviour
     LayerMask _else;
 
     [SerializeField] int currentDetectionPoints;
+
+    float awareness;
+    [SerializeField] float awarenessThreshold;
+    bool updateAwareness = true;
+
     int CurrentDetectionPoints
     {
         get
@@ -20,15 +31,11 @@ public class SecurityGuardVision : MonoBehaviour
         set
         {
             currentDetectionPoints = value;
-            if (currentDetectionPoints >= thresholdTillDetection)
-            {
-                triggerAlarm.Invoke();
-            }
         }
     }
 
     [SerializeField] private int thresholdTillDetection;
-    UnityEvent triggerAlarm;
+    [SerializeField] UnityEvent triggerAlerted;
 
     private void Awake()
     {
@@ -39,6 +46,10 @@ public class SecurityGuardVision : MonoBehaviour
     private void Update()
     {
         PlayerDetection();
+        if (updateAwareness)
+        {
+            UpdateAwareness();
+        }
     }
 
     //The eyes of the guard, throws a spehre (but at an angle) to check if any of the detection points are in it.
@@ -47,9 +58,8 @@ public class SecurityGuardVision : MonoBehaviour
     {
         currentDetectionPoints = 0;
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, playerDetectionPointLayer);
-
         for (int i = 0; i < targetsInViewRadius.Length; i++)
-        {            
+        {
             Transform target = targetsInViewRadius[i].transform;
             Vector3 dirToTarget = (target.position - transform.position).normalized;
 
@@ -57,11 +67,56 @@ public class SecurityGuardVision : MonoBehaviour
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
-                if(!Physics.Raycast(transform.position, dirToTarget, dstToTarget, _else))
+                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, _else))
                 {
                     currentDetectionPoints += targetsInViewRadius[i].GetComponent<DetectionPoint>().detectionPointValue;
                 }
             }
         }
+    }
+
+    public void UpdateAwareness()
+    {
+        if (currentDetectionPoints >= thresholdTillDetection)
+        {
+            awareness += (Time.deltaTime * 2);
+            if (awareness >= awarenessThreshold)
+            {
+                SoundTheAlarm();
+                updateAwareness = false;
+            }
+            return;
+        }
+        else
+        {
+            if (currentDetectionPoints > 0 && !questionMark.activeSelf)
+            {
+                guardNotice.Play();
+                questionMark.SetActive(true);
+                return;
+            }
+            if (currentDetectionPoints <= 0 && questionMark.activeSelf)
+            {
+                questionMark.SetActive(false);
+                return;
+            }
+            if (awareness > 0)
+            {
+                awareness -= Time.deltaTime;
+            }
+        }
+    }
+
+    private IEnumerator GuardAlarmed()
+    {
+        yield return new WaitForSeconds(2);
+
+
+    }
+
+    public void SoundTheAlarm()
+    {
+        triggerAlerted?.Invoke();
+        exclamationMark.SetActive(true);
     }
 }

@@ -7,16 +7,9 @@ namespace ThiefAnimation
         Running,
         CrouchingIdle,
         Crouching,
-        StabbingKnife,
+        CrouchingShooting,
         ShootingPistol,
-        ShootingSMG,
-
         IdleShooting,
-        WalkingStabbingKnife,
-        WalkingShootingPistol,
-        WalkingShootingSMG,
-        CrouchingStab,
-
-        Interact
+        Reload
     }
 }

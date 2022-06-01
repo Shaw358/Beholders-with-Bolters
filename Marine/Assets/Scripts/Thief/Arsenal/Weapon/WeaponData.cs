@@ -7,6 +7,7 @@ public class WeaponData : ScriptableObject
     public string weaponName;
 
     public int ammoPerMagazine;
+    public int currentAmmo;
     public int maxAmmo;
 
     public int damage;

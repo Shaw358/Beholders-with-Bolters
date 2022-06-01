@@ -1,45 +1,55 @@
 using ArsenalOfDemocracy.Weapons;
-using ArsenalOfDemocracy.Gadgets;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public class Arsenal : MonoBehaviour
 {
+    [SerializeField] GunUIFeedback feedback;
     [SerializeField] List<WeaponData> weaponData = new List<WeaponData>();
     [SerializeField] List<Weapon> weapons = new List<Weapon>();
-    [SerializeField] List<Gadget> gadgets = new List<Gadget>();
 
-    int currentWeapon;
+    [SerializeField] int currentWeapon;
 
     public void UseCurrentWeapon()
     {
+        weaponData[currentWeapon].currentAmmo--;
+        weaponData[currentWeapon].maxAmmo--;
         weapons[currentWeapon].Attack();
+
+        if(weaponData[currentWeapon].currentAmmo == 0)
+        {
+            Reload();
+        }
+
+        UpdateFeedback();
     }
 
-    //FIXME: Stange issue regarding lambda??????
-    /*public Weapon GetWeapon(WeaponType type)
+    public void Reload()
     {
-        return weaponData.Find(x => x.weaponType == type);
-    }*/
-
-    public bool CheckIfGadgetExists(GadgetType newType)
-    {
-        return gadgets.Any(gadget => gadget.gadgetType == newType);
+        //weapons[currentWeapon].Attack();
+        weapons[currentWeapon].PlayReloadSFX();
+        StartCoroutine(ReloadNumerator());
     }
 
-    public Gadget GetGadget(GadgetType newType)
-    {
-        return gadgets.Find(x => x.gadgetType == newType);
-    }
-
-    public Weapon GetCurrentWeapon()
-    {
-        return weapons[currentWeapon];
-    }
-
-    public WeaponData GetCUrrentWeaponData()
+    public WeaponData GetCurrentWeaponData()
     {
         return weaponData[currentWeapon];
+    }
+
+    private IEnumerator ReloadNumerator()
+    {
+        //NOTE: This is bad, hardcoding this is a horrible idea but time has forced my hand
+        yield return new WaitForSeconds(2);
+        weaponData[currentWeapon].currentAmmo = weaponData[currentWeapon].ammoPerMagazine;
+        UpdateFeedback();
+        Debug.Log("RELOAD");
+    }
+
+    private void UpdateFeedback()
+    {
+        string newFeedback = weaponData[currentWeapon].currentAmmo.ToString() + "/" + weaponData[currentWeapon].ammoPerMagazine.ToString();
+        feedback.UpdateCurrentBulletCount(newFeedback);
     }
 }

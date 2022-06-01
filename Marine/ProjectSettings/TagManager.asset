@@ -7,6 +7,7 @@ TagManager:
   - UsernameTxtField
   - PasswordTxtField
   - Canvas
+  - PlayerDetectionPoint
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - 
   - PlayerDetectionPoint
   - Guard
-  - 
-  - 
+  - PlayerMeshes
+  - PlayerWeapon
   - 
   - 
   - 

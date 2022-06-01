@@ -1,6 +1,6 @@
 namespace Guard
 {
-    enum GuardState
+    public enum GuardState
     {
         Patrolling, //walling around
         Alerted, //Noticed the player and calls security

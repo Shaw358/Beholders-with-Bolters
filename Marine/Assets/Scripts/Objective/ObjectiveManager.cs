@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class ObjectiveManager : MonoBehaviour
+public class ObjectiveManager : MonoSingleton<ObjectiveManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] List<Objective> objectives = new List<Objective>();
+    [SerializeField] int currObjective;
+
+    [SerializeField] TextMeshProUGUI objectiveText;
+
+    private IEnumerator UpdateObjectiveText()
     {
-        
+        float delay = .03f;
+        currObjective++;
+        objectives[currObjective].onObjectiveCompleted?.Invoke();
+
+        objectiveText.text = "Current Objective: ";
+
+        for (int i = 0; i < objectives[currObjective].description.Length; i++)
+        {
+            yield return new WaitForSeconds(delay);
+            objectiveText.text += objectives[currObjective].description[i];
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void NextObjective()
     {
-        
+        StartCoroutine(UpdateObjectiveText());
     }
 }

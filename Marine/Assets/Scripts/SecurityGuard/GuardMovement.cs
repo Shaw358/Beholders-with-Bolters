@@ -5,6 +5,7 @@ using Guard;
 [RequireComponent(typeof(SecurityGuard))]
 public class GuardMovement : MonoBehaviour
 {
+    [SerializeField] GuardAnimator gAnimator;
     [SerializeField] Transform currentWaypoint;
     [SerializeField] Route currentRoute;
 
@@ -12,13 +13,15 @@ public class GuardMovement : MonoBehaviour
     [SerializeField] float runSpeed;
     [SerializeField] int restChance; //Chance of the guard taking a small break after going to a waypoint
     [SerializeField] float partolRotationSpeed;
-    [SerializeField] float altertedRotationSpeed;
+    [SerializeField] float responding;
+
+    float preferredDistanceInMeters = 5;
 
     [SerializeField] bool canMove;
     [SerializeField] bool canWalk;
 
     [SerializeField] Rigidbody rb;
-    [SerializeField] GuardState currentState;
+    [SerializeField] public GuardState currentState;
 
     public bool CanWalk
     {
@@ -49,19 +52,28 @@ public class GuardMovement : MonoBehaviour
             switch (currentState)
             {
                 case GuardState.Patrolling:
+
                     MoveForward(walkSpeed);
+                    gAnimator.PlayAnimation("guardWalk", false);
+                    //Checkpoint
+                    if (Vector3.Distance(transform.position, currentWaypoint.position) < .15f)
+                    {
+                        currentWaypoint = currentRoute.GetNextWaypoint(currentWaypoint);
+                        StartCoroutine(RotatedTowards(currentWaypoint.position));
+                    }
                     break;
                 case GuardState.Alerted:
+
+                    MoveForward(0);
+                    break;
+                case GuardState.Responding:
+
+                    currentRoute.FindBestPathToWaypoint(currentWaypoint, currentRoute.FindNearestWaypointToGameobject(ThiefController.instance.gameObject, preferredDistanceInMeters));
+
                     MoveForward(runSpeed);
+                    gAnimator.PlayAnimation("guardRun", false);
                     break;
             }
-        }
-
-        //Checkpoint
-        if (Vector3.Distance(transform.position, currentWaypoint.position) < .15f)
-        {
-            currentWaypoint = currentRoute.GetNextWaypoint(currentWaypoint);
-            StartCoroutine(RotatedTowards(currentWaypoint.position));
         }
     }
 
@@ -73,7 +85,7 @@ public class GuardMovement : MonoBehaviour
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
         float threshold = .5f;
 
-        float rotationSpeed = currentState == GuardState.Patrolling ? partolRotationSpeed : altertedRotationSpeed;
+        float rotationSpeed = currentState == GuardState.Patrolling ? partolRotationSpeed : responding;
 
         //Decides forward movement
         if (Mathf.Abs(angle) > 15)

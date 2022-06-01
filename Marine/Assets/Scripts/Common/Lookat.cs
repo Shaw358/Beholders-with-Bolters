@@ -12,7 +12,5 @@ public class Lookat : MonoBehaviour
     {
         if (lookatTarget)
             transform.LookAt(lookatTarget.transform);
-        //mandatory correction
-        transform.Rotate(0, 180, 0);
     }
 }

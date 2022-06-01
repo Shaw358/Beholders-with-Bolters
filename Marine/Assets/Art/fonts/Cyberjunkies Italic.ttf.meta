@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 391978483f2b0344ba264dea6a75d41a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Cyberjunkies
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6470fc2256eba204db0fe34e3bd620f0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
