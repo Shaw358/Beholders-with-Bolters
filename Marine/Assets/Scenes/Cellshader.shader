@@ -4,7 +4,7 @@ Shader "Unlit/ToonShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Brightness("Brightness", Range(0,1)) = 0.3
-        _Strength("Strength", Range(0,2)) = 0.5
+        _Strength("Strength", Range(0,1)) = 0.5
         _Color("Color", COLOR) = (1,1,1,1)
         _Detail("Detail", Range(0,1)) = 0.3
     }
@@ -43,7 +43,7 @@ Shader "Unlit/ToonShader"
             float _Detail;
 
             float Toon(float3 normal, float3 lightDir) {
-                float NdotL = max(0.2,dot(normalize(normal), normalize(lightDir)));
+                float NdotL = max(0.0,dot(normalize(normal), normalize(lightDir)));
 
                 return floor(NdotL / _Detail);
             }
