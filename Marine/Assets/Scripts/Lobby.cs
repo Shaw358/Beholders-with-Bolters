@@ -24,7 +24,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
         else
         {
-            SceneManager.LoadScene("BankLevel");
+            SceneManager.LoadScene("BANKU");
         }
     }
 
@@ -41,7 +41,7 @@ public class Lobby : MonoBehaviourPunCallbacks
             }
             else
             {
-                SceneManager.LoadScene("BankLevel");
+                SceneManager.LoadScene("BANKU");
             }
         }
     }

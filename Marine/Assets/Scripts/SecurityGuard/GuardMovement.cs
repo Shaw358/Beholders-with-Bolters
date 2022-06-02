@@ -15,7 +15,7 @@ public class GuardMovement : MonoBehaviour
     [SerializeField] float partolRotationSpeed;
     [SerializeField] float responding;
 
-    float preferredDistanceInMeters = 5;
+    [SerializeField] float preferredDistanceInMeters = 5;
 
     [SerializeField] bool canMove;
     [SerializeField] bool canWalk;
@@ -56,22 +56,34 @@ public class GuardMovement : MonoBehaviour
                     MoveForward(walkSpeed);
                     gAnimator.PlayAnimation("guardWalk", false);
                     //Checkpoint
-                    if (Vector3.Distance(transform.position, currentWaypoint.position) < .15f)
+                    Debug.Log(Vector3.Distance(transform.position, currentWaypoint.position));
+                    if (Vector3.Distance(transform.position, currentWaypoint.position) < .35f)
                     {
                         currentWaypoint = currentRoute.GetNextWaypoint(currentWaypoint);
                         StartCoroutine(RotatedTowards(currentWaypoint.position));
                     }
                     break;
                 case GuardState.Alerted:
-
                     MoveForward(0);
                     break;
                 case GuardState.Responding:
-
-                    currentRoute.FindBestPathToWaypoint(currentWaypoint, currentRoute.FindNearestWaypointToGameobject(ThiefController.instance.gameObject, preferredDistanceInMeters));
-
-                    MoveForward(runSpeed);
-                    gAnimator.PlayAnimation("guardRun", false);
+                    Debug.Log(Vector3.Distance(currentWaypoint.position, ThiefController.instance.transform.position));
+                    if (Vector3.Distance(currentWaypoint.position, ThiefController.instance.transform.position) > 3.5f && Vector3.Distance(currentWaypoint.position, ThiefController.instance.transform.position) < 7.5f)
+                    {
+                        //Shooting happens here
+                        MoveForward(0);
+                    }
+                    else
+                    {
+                        if (Vector3.Distance(transform.position, currentWaypoint.position) < .35f)
+                        {
+                            currentRoute.FindBestPathToWaypoint(currentWaypoint, currentRoute.FindNearestWaypointToGameobject(ThiefController.instance.gameObject, preferredDistanceInMeters));
+                            currentWaypoint = currentRoute.GetNextWaypoint(currentWaypoint);
+                            StartCoroutine(RotatedTowards(currentWaypoint.position));
+                        }
+                        MoveForward(runSpeed);
+                        gAnimator.PlayAnimation("guardRun", false);
+                    }
                     break;
             }
         }
