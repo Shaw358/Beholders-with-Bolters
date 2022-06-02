@@ -36,12 +36,12 @@ public class Door : InteractableBase
         if (!isOpen)
         {
             isOpen = true;
-            animator.Play("OpenDoor", 0);
+            animator.Play("DoorOpening", 0);
         }
         else
         {
             isOpen = false;
-            animator.Play("CloseDoor", 0);
+            animator.Play("DoorClosing", 0);
         }
         StartCoroutine(DoorAnimationCoolDown());
     }

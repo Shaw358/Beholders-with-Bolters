@@ -45,9 +45,9 @@ public class SecurityGuardVision : MonoBehaviour
 
     private void Update()
     {
+        PlayerDetection();
         if (updateAwareness)
         {
-            PlayerDetection();
             UpdateAwareness();
         }
     }
@@ -77,19 +77,6 @@ public class SecurityGuardVision : MonoBehaviour
 
     public void UpdateAwareness()
     {
-        if (currentDetectionPoints > 0 && !questionMark.activeSelf)
-        {
-            guardNotice.Play();
-            questionMark.SetActive(true);
-        }
-        if (currentDetectionPoints <= 0 && questionMark.activeSelf)
-        {
-            questionMark.SetActive(false);
-        }
-        if (awareness > 0)
-        {
-            awareness -= Time.deltaTime;
-        }
         if (currentDetectionPoints >= thresholdTillDetection)
         {
             awareness += (Time.deltaTime * 2);
@@ -100,6 +87,31 @@ public class SecurityGuardVision : MonoBehaviour
             }
             return;
         }
+        else
+        {
+            if (currentDetectionPoints > 0 && !questionMark.activeSelf)
+            {
+                guardNotice.Play();
+                questionMark.SetActive(true);
+                return;
+            }
+            if (currentDetectionPoints <= 0 && questionMark.activeSelf)
+            {
+                questionMark.SetActive(false);
+                return;
+            }
+            if (awareness > 0)
+            {
+                awareness -= Time.deltaTime;
+            }
+        }
+    }
+
+    private IEnumerator GuardAlarmed()
+    {
+        yield return new WaitForSeconds(2);
+
+
     }
 
     public void SoundTheAlarm()

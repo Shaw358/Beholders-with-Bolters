@@ -5,31 +5,24 @@ using UnityEngine;
 public class GuardAnimator : MonoBehaviour
 {
     [SerializeField] Animator animator;
+    [SerializeField] List<string> animationNames = new List<string>();
     bool isOverridePriority;
 
     public void PlayAnimation(string animationName, bool isOverride)
     {
-        if (isOverride)
+        if(isOverride)
         {
             isOverridePriority = isOverride;
-            StartCoroutine(RemoveOverridePriority());
         }
-        if (!isOverride && isOverridePriority)
+        if(!isOverride && isOverridePriority)
         {
             return;
         }
-        animator.Play(animationName, 0);
+        animator.Play(animationNames.IndexOf(animationName), 1);
     }
 
     public float GetAnimationLengthInSeconds()
     {
         return GetAnimationLength.GetLengthOfAnimation(animator);
-    }
-
-    private IEnumerator RemoveOverridePriority()
-    {
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForSeconds(GetAnimationLengthInSeconds());
-        isOverridePriority = false;
     }
 }

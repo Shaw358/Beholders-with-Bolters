@@ -9,27 +9,19 @@ public class ObjectiveManager : MonoSingleton<ObjectiveManager>
     [SerializeField] int currObjective;
 
     [SerializeField] TextMeshProUGUI objectiveText;
-    [SerializeField] AudioSource sourceSFX;
-    [SerializeField] AudioClip typewriterSFX;
 
     private IEnumerator UpdateObjectiveText()
     {
-        float delay = .1f;
+        float delay = .03f;
         currObjective++;
-        if (currObjective >= 0)
-        {
-            objectives[currObjective].onObjectiveCompleted?.Invoke();
-        }
+        objectives[currObjective].onObjectiveCompleted?.Invoke();
 
         objectiveText.text = "Current Objective: ";
-
-        yield return new WaitForSeconds(1.5f);
 
         for (int i = 0; i < objectives[currObjective].description.Length; i++)
         {
             yield return new WaitForSeconds(delay);
             objectiveText.text += objectives[currObjective].description[i];
-            sourceSFX.PlayOneShot(typewriterSFX);
         }
     }
 

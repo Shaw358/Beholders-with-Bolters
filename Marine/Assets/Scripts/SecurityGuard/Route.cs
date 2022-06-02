@@ -44,46 +44,79 @@ public class Route : MonoBehaviour
         return desiredWaypoint;
     }
 
-    public Transform FindBestPathToWaypoint(Transform currentWaypoint, Transform targetWaypoint)
+    public void FindBestPathToWaypoint(Transform currentWaypoint, Transform targetWaypoint)
     {
         //NOTE: There is a more efficient way of doing this, I'm just not the one to write it
         int indexOfCurrentWaypoint = GetIndexOfWaypoint(currentWaypoint);
         int indexOfTargetWaypoint = GetIndexOfWaypoint(targetWaypoint);
 
-        float distanceUp, distanceDown = 0;
-        Transform down = null;
-        Transform up = null;
-
-        if((indexOfCurrentWaypoint + 1) > waypoints.Count - 1)
+        int pathUp = 0, pathDown = 0;
+        
+        int indexer = indexOfCurrentWaypoint;
+        while (true)
         {
-            distanceUp = Vector3.Distance(waypoints[indexOfCurrentWaypoint + 1].position, targetWaypoint.position);
-            up = waypoints[indexOfCurrentWaypoint + 1];
+            if (indexer == indexOfTargetWaypoint)
+            {
+                break;
+            }
+            else
+            {
+                if (indexer == GetRouteLength())
+                {
+                    indexer = 0;
+                }
+                indexer++;
+                pathUp++;
+            }
+        }
+
+        indexer = indexOfCurrentWaypoint;
+        while (true)
+        {
+            if (indexer == indexOfTargetWaypoint)
+            {
+                break;
+            }
+            else
+            {
+                if (indexer == 0)
+                {
+                    indexer = GetRouteLength();
+                }
+                indexer--;
+                pathDown++;
+            }
+        }
+
+        List<Transform> newPath = new List<Transform>();
+        if(pathUp < pathDown)
+        {
+            for (int index = indexOfCurrentWaypoint; index < pathUp; index++)
+            {
+                if(index == GetRouteLength())
+                {
+                    index = 0;
+                }
+                newPath.Add(waypoints[index]);
+            }
         }
         else
         {
-            distanceUp = Vector3.Distance(waypoints[0].position, targetWaypoint.position);
-            up = waypoints[0];
-        }
+            for (int index = indexOfCurrentWaypoint; index > pathDown; index--)
+            {
 
-        if (indexOfCurrentWaypoint - 1 < 0)
-        {
-            distanceDown = Vector3.Distance(waypoints[waypoints.Count].position, targetWaypoint.position);
-            down = waypoints[waypoints.Count];
+                if (index == 0)
+                {
+                    index = GetRouteLength();
+                }
+                newPath.Add(waypoints[index]);
+            }
         }
-        else
-        {
-            distanceDown = Vector3.Distance(waypoints[0].position, targetWaypoint.position);
-            down = waypoints[0];
-        }
-
-        if(distanceDown < distanceUp)
-        {
-            return down;
-        }
-        return up;
+        path = newPath;
     }
 
-    private int GetIndexOfWaypoint(Transform waypoint)
+    private int GetIndexOfWaypoint(Transform waypoint
+        )
     {
         return waypoints.IndexOf(waypoint);
     }

@@ -8,7 +8,6 @@ TagManager:
   - PasswordTxtField
   - Canvas
   - PlayerDetectionPoint
-  - Interactable
   layers:
   - Default
   - TransparentFX

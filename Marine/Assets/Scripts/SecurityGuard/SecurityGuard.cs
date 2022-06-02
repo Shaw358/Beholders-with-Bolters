@@ -11,21 +11,16 @@ public class SecurityGuard : MonoBehaviour
     [SerializeField] SecurityGuardVision gVision;
     [SerializeField] GuardAnimator gAnimator;
 
-    private void Awake()
-    {
-        currentState = GuardState.Patrolling;
-    }
-
     public void DecreaseHealth(int damage)
     {
+        Debug.Log("wOW");
         hp -= damage;
         if(currentState != GuardState.Alerted || currentState != GuardState.Responding)
         {
-            PlayAlarmAnimation();
+            SwitchToAlarmBehaviourAfterAnimation();
         }
         if (hp <= 0)
         {
-            StopAllCoroutines();
             gAnimator.PlayAnimation("DeadMF", true);
         }
     }
@@ -39,16 +34,13 @@ public class SecurityGuard : MonoBehaviour
 
     public void PlayAlarmAnimation()
     {
-        currentState = GuardState.Alerted;
-        gAnimator.PlayAnimation("GuardAlert", true);
-        StartCoroutine(SwitchToAlarmBehaviourAfterAnimation());
+        gAnimator.PlayAnimation("Alarmed", true);
     }
 
     public IEnumerator SwitchToAlarmBehaviourAfterAnimation()
     {
         yield return new WaitForEndOfFrame();
         yield return new WaitForSeconds(gAnimator.GetAnimationLengthInSeconds());
-        GameObject.Find("Alarms").GetComponent<SetObjectActives>().ActivateObjects();
         currentState = GuardState.Responding;
     }
 
