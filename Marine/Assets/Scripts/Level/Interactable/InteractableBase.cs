@@ -12,10 +12,10 @@ public class InteractableBase : MonoBehaviour
 
     public void EnableInteractButton()
     {
-        if (!canShowInteractButton)
+        /*if (!canShowInteractButton)
         {
             return;
-        }
+        }*/
         foreach (GameObject item in InteractVisualFeedback)
         {
             item.SetActive(true);

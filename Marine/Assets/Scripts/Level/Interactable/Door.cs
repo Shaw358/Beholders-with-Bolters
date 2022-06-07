@@ -21,6 +21,11 @@ public class Door : InteractableBase
     [SerializeField] Animator animator;
     [SerializeField] bool isOpen;
 
+    private void Awake()
+    {
+        animator = GetComponentInParent<Animator>();
+    }
+
     private void Start()
     {
         CanInteract = true;
