@@ -20,6 +20,7 @@ public class SymbolMatching : MonoBehaviour
         {
             symbols[index].sprite = gameStats.possibleSymbols[index];
         }
+        canGuess = true;
     }
 
     public void OnImageClick(int index)
