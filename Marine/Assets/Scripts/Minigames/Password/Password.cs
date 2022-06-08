@@ -26,7 +26,7 @@ public class Password : MonoBehaviour
     public void activatePuzzle()
     {
 
-        GetComponent<MinigameManager>().PasswordPuzzle(clearToStart);
+        //GetComponent<MinigameManager>().PasswordPuzzle(clearToStart);
         gameObject.SetActive(true);
     }
 
