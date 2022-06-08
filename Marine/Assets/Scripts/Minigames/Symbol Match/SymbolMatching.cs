@@ -1,44 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using ExitGames.Client.Photon;
+using Photon.Pun;
 
 public class SymbolMatching : MonoBehaviour
 {
-    [SerializeField] private GameObject[] symbols;
-    [SerializeField] private GameObject canvas;
-    [SerializeField] private bool clearToStart;
-    public void CorrectAnswer()
+    bool canGuess;
+    [SerializeField] TextMeshProUGUI coolDownText; 
+    SymbolMatchingMinigame gameStats;
+    [SerializeField] Image[] symbols;
+
+    public void InitMinigame(SymbolMatchingMinigame newGameStats)
     {
-        //insert Green Checkmark 
-        for (int i = 0; i < symbols.Length; i++)
+        gameStats = newGameStats;
+        for (int index = 0; index < symbols.Length; index++)
         {
-            symbols[i].SetActive(false);
+            symbols[index].sprite = gameStats.possibleSymbols[index];
         }
     }
-    public void IncorrectAnswer()
-    {
-        //inset Red X image instatiation here
-    }
-    public void CalltoAction()
-    {
-    }
 
-    private void Start()
+    public void OnImageClick(int index)
     {
-        //1st hardcoded symbol -> X pos to 
-        GameObject Symbol1 = Instantiate(symbols[0], new Vector3(symbols[0].transform.position.x - .2f, symbols[0].transform.position.y, symbols[0].transform.position.z), Quaternion.identity) as GameObject;
-        //2nd hardcoded symbol -> center
-        GameObject Symbol2 = Instantiate(symbols[1]) as GameObject;
-        //3rd hardcoded symbol -> X pos to right
-        GameObject Symbol3 = Instantiate(symbols[2], new Vector3(symbols[2].transform.position.x + .2f, symbols[2].transform.position.y, symbols[2].transform.position.z), Quaternion.identity) as GameObject;
-
-        Symbol1.transform.SetParent(canvas.transform, false);
-        Symbol2.transform.SetParent(canvas.transform, false);
-        Symbol3.transform.SetParent(canvas.transform, false);
+        if(!canGuess)
+        {
+            return;
+        }
+        if(index != gameStats.currentIndexOfSymbol)
+        {
+            StartCoroutine(CoolDown());
+        }
+        else
+        {
+            PhotonNetwork.RaiseEvent(NetworkingIDs.MINIGAME, null, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        }
     }
 
-    private void Update()
+    private IEnumerator CoolDown()
     {
-        CalltoAction();
+        canGuess = false;
+        float cooldown = gameStats.guessCooldown;
+
+        while (cooldown > 0)
+        {
+            cooldown -= Time.deltaTime;
+            coolDownText.text = "Incorrect Symbol! Rebooting in: " + Mathf.Round(cooldown).ToString();
+            yield return null;
+        }
+        canGuess = true;
     }
 }

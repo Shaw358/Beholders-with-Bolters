@@ -18,11 +18,13 @@ public class Door : InteractableBase
         }
     }
 
+    [SerializeField] AudioSource source;
     [SerializeField] Animator animator;
     [SerializeField] bool isOpen;
 
     private void Awake()
     {
+        source = GetComponentInParent<AudioSource>();
         animator = GetComponentInParent<Animator>();
     }
 
@@ -48,6 +50,7 @@ public class Door : InteractableBase
             isOpen = false;
             animator.Play("CloseDoor", 0);
         }
+        source.Play();
         StartCoroutine(DoorAnimationCoolDown());
     }
 

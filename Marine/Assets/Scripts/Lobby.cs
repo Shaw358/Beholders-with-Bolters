@@ -18,31 +18,14 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void LaunchGame()
     {
         PhotonNetwork.RaiseEvent(NetworkingIDs.LOBBY_MENU, isHacker, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
-        if (isHacker)
-        {
-            SceneManager.LoadScene("hacker");
-        }
-        else
-        {
-            SceneManager.LoadScene("BANKU");
-        }
+        SceneManager.LoadScene("BANKU");
     }
 
     public void ReceiveLaunchGame(EventData eventData)
     {
         if (eventData.Code == NetworkingIDs.LOBBY_MENU)
         {
-            Debug.Log("Heh wat jammer");
-            textMeshReturnStatus.text = "Call received";
-            bool IsHacker = (bool)eventData.CustomData;
-            if (!IsHacker)
-            {
-                SceneManager.LoadScene("hacker");
-            }
-            else
-            {
-                SceneManager.LoadScene("BANKU");
-            }
+            SceneManager.LoadScene("BANKU");
         }
     }
 

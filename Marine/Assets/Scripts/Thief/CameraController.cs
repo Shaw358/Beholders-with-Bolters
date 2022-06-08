@@ -15,15 +15,9 @@ public class CameraController : MonoBehaviour
 
     public bool canMove;
 
-    void Start()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
     void Update()
     {
-        if (!canMove)
+        if (!canMove || MultiplayerDataTracker.instance.player == MultiplayerDataTracker.PlayerType.Hacker)
         {
             return;
         }

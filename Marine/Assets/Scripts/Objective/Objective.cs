@@ -8,4 +8,9 @@ public class Objective : MonoBehaviour
     public string description;
 
     public UnityEvent onObjectiveCompleted;
+    
+    public void OnObjectiveCompleted()
+    {
+        onObjectiveCompleted?.Invoke();
+    }
 }

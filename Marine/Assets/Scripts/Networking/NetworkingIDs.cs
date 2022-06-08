@@ -7,4 +7,7 @@ public static class NetworkingIDs
     public static byte SWITCH_CAMERA = 4;
     public static byte LOBBY_MENU = 5;
     public static byte DEBUGGING = 6;
+
+    public static byte MINIGAME = 24;
+    public static byte MINIGAMESPAWNER = 44;
 }

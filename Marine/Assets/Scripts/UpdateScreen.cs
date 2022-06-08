@@ -3,13 +3,14 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpdateScreen : MonoBehaviourPunCallbacks
+public class UpdateScreen : MonoBehaviour
 {
     [SerializeField] RawImage _renderer;
 
-    public void ReceiveFrameData(EventData eventData)
+    public void ReceiveFrameData(Texture2D tex)
     {
-        Debug.Log(eventData.Code);
+        _renderer.texture = tex;
+        /*Debug.Log(eventData.Code);
         if (eventData.Code == NetworkingIDs.CAMERA_FEED)
         {
             Texture2D tex = new Texture2D(250, 250, TextureFormat.RGBA32, false);
@@ -21,16 +22,6 @@ public class UpdateScreen : MonoBehaviourPunCallbacks
             //renderTexture.Create();
 
             _renderer.texture = tex;//ToTexture2D(renderTexture);
-        }
-    }
-
-    public override void OnDisable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived -= ReceiveFrameData;
-    }
-
-    public override void OnEnable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived += ReceiveFrameData;
+        }*/
     }
 }

@@ -42,7 +42,7 @@ public class GuardMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!canMove)
+        if (!canMove || MultiplayerDataTracker.instance.player == MultiplayerDataTracker.PlayerType.Hacker)
         {
             return;
         }

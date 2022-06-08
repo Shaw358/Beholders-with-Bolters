@@ -36,7 +36,6 @@ public class ScreenZoom : MonoBehaviour
         switch (zoomedIn)
         {
             case false:
-                Debug.Log(zoomedIn + " " + currentScreen + " SZ1");
                 gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity,speed);
                 distFromDest = transform.position.z - cameraPositions[currentScreen - 1].transform.position.z;
                 if (Mathf.Abs(distFromDest) <= .1f)
@@ -46,7 +45,6 @@ public class ScreenZoom : MonoBehaviour
                 }
                 break;
             case true:
-                Debug.Log(zoomedIn + " SZ2");
                 gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity,speed);
                 distFromDest = transform.position.z - cameraPositions[currentScreen - 1].transform.position.z;
                 if (Mathf.Abs(distFromDest) <= .05f)
@@ -61,7 +59,6 @@ public class ScreenZoom : MonoBehaviour
     {
         if (switchingScreen)
         {
-            Debug.Log(switchingScreen + " " + zoomingIn + " " + zoomingOut + " Move");
             gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, cameraPositions[currentScreen - 1].transform.rotation,speed + .5f);
             gameObject.transform.position = Vector3.SmoothDamp(transform.position, cameraPositions[currentScreen - 1].transform.position, ref velocity, speed);
             distFromDest = transform.rotation.y - cameraPositions[currentScreen - 1].transform.rotation.y;

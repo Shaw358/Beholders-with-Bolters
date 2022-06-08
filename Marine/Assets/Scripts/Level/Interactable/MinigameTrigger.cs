@@ -1,12 +1,15 @@
-using Minigames;
+using ExitGames.Client.Photon;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MinigameTrigger : InteractableBase
 {
-    [SerializeField] MinigameType type;
     [Header("On succesful minigame completion")]
     [SerializeField] UnityEvent onSuccesfulMinigame;
+    [SerializeField] Image symbolImage;
+    bool isActive = false;
 
     private void Start()
     {
@@ -15,9 +18,31 @@ public class MinigameTrigger : InteractableBase
 
     public override void Interact()
     {
-        if(canInteract)
+        isActive = true;
+        canShowInteractButton = false;
+        if (canInteract)
         {
-            //TODO: trigger stuff
+            symbolImage.sprite = MiniGameSpawner.instance.GetSymbolMatchingMinigameInfo().correctSymbol;
         }
+
+        PhotonNetwork.RaiseEvent(NetworkingIDs.MINIGAMESPAWNER, null, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
+    }
+
+    public void SuccesfulMinigame(EventData eventData)
+    {
+        if (eventData.Code == NetworkingIDs.MINIGAME && isActive)
+        {
+            onSuccesfulMinigame?.Invoke();
+        }
+    }
+
+    private void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += SuccesfulMinigame;
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= SuccesfulMinigame;
     }
 }

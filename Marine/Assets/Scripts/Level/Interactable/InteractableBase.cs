@@ -12,10 +12,10 @@ public class InteractableBase : MonoBehaviour
 
     public void EnableInteractButton()
     {
-        /*if (!canShowInteractButton)
+        if (!canShowInteractButton)
         {
             return;
-        }*/
+        }
         foreach (GameObject item in InteractVisualFeedback)
         {
             item.SetActive(true);
@@ -33,5 +33,10 @@ public class InteractableBase : MonoBehaviour
     public void TurnOnCanInteract()
     {
         canInteract = true;
+    }
+
+    public void TurnOffCanInteract()
+    {
+        canInteract = false;
     }
 }

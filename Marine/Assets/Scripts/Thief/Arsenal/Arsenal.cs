@@ -44,7 +44,6 @@ public class Arsenal : MonoBehaviour
         yield return new WaitForSeconds(2);
         weaponData[currentWeapon].currentAmmo = weaponData[currentWeapon].ammoPerMagazine;
         UpdateFeedback();
-        Debug.Log("RELOAD");
     }
 
     private void UpdateFeedback()

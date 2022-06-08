@@ -7,7 +7,7 @@ using ExitGames.Client.Photon;
 public class SecurityCamera : MonoBehaviour
 {
     public int cameraID;
-    [SerializeField] CameraFeed cameraFeed;
+    [SerializeField] public CameraFeed cameraFeed;
     public bool cameraFeedEnabled { get; private set; }
 
     [SerializeField] float minRotAngle;
@@ -15,45 +15,9 @@ public class SecurityCamera : MonoBehaviour
     [SerializeField] float rotationDuration;
     [SerializeField] public bool isActive;
 
-    RaiseEventOptions raiseEventOptions;
-
-    //--------------
-
-    [Header("Networking")]
-    [SerializeField] float cameraUpdateTime;
-    float timer;
-
-    //--------------
-
-    private void Awake()
-    {
-        raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
-    }
-
     private void Start()
     {
         StartCoroutine(Rotator());
-    }
-
-    private void Update()
-    {
-        if(!isActive)
-        {
-            return;
-        }
-        SendFrameData();
-
-        //timer += Time.deltaTime;
-        //if (timer > cameraUpdateTime)
-        //{
-         //   timer = 0;
-        //}
-    }
-
-    public void SendFrameData()
-    {
-        Debug.Log("bruh");
-        PhotonNetwork.RaiseEvent(NetworkingIDs.CAMERA_FEED, cameraFeed.GetImageFromCameraAsObject(), raiseEventOptions, SendOptions.SendUnreliable);
     }
 
     public void StartCameraRotator()
@@ -97,5 +61,15 @@ public class SecurityCamera : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public void ActivateCamera()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+    }
+    
+    public void DeactivateCamera()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 }

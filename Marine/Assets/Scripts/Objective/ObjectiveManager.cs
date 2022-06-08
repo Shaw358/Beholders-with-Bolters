@@ -11,7 +11,7 @@ public class ObjectiveManager : MonoSingleton<ObjectiveManager>
     [SerializeField] TextMeshProUGUI objectiveText;
     [SerializeField] AudioSource sourceSFX;
     [SerializeField] AudioClip typewriterSFX;
-
+    
     private IEnumerator UpdateObjectiveText()
     {
         float delay = .1f;

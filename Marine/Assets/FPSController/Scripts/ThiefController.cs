@@ -40,14 +40,17 @@ public class ThiefController : MonoSingleton<ThiefController>
         characterController = GetComponent<CharacterController>();
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         canAttack = true;
     }
 
     void Update()
     {
+        if (MultiplayerDataTracker.instance.player == MultiplayerDataTracker.PlayerType.Hacker)
+        {
+            return;
+        }
         #region //Movement Zone\\
+
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
@@ -100,12 +103,12 @@ public class ThiefController : MonoSingleton<ThiefController>
         }
 
         //FIXME: Yeah updating this every frame is stupid but this will have to do for now
-        if(isMoving && isRunning)
+        if (isMoving && isRunning)
         {
             thiefFootSounds.SetNewThreshold(.4f);
             thiefFootSounds.PlayFootStepIfPossible();
         }
-        else if(isMoving)
+        else if (isMoving)
         {
             thiefFootSounds.SetNewThreshold(.7f);
             thiefFootSounds.PlayFootStepIfPossible();
@@ -127,7 +130,7 @@ public class ThiefController : MonoSingleton<ThiefController>
             {
                 fireRateTimer = 0;
                 canAttack = true;
-                if(isShooting)
+                if (isShooting)
                 {
                     isShooting = false;
                 }

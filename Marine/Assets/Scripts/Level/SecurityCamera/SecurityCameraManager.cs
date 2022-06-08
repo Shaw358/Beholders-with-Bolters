@@ -7,10 +7,11 @@ public class SecurityCameraManager : MonoBehaviour
 {
     #region global vars
     [SerializeField] List<SecurityCamera> cameras = new List<SecurityCamera>();
+    [SerializeField] UpdateScreen updateScreen;
     int currentEnabledCamera;
     #endregion
 
-    public void DisableCameraView(EventData eventData)
+    /*public void DisableCameraView(EventData eventData)
     {
         if (eventData.Code == NetworkingIDs.DISABLE_CAMERA)
         {
@@ -26,23 +27,46 @@ public class SecurityCameraManager : MonoBehaviour
             cameras[cameraID].isActive = true;
             currentEnabledCamera = cameraID;
         }
+    }*/
+    private void Update()
+    {
+        updateScreen.ReceiveFrameData(cameras[currentEnabledCamera].cameraFeed.GetImageFromCameraAsTexture2D());
+        CheckInput();
     }
 
-    public void SwitchCamera(EventData eventData)
+    void CheckInput()
     {
-        if (eventData.Code == NetworkingIDs.SWITCH_CAMERA) //checks if event belongs to this function
+        if (MultiplayerDataTracker.instance.player == MultiplayerDataTracker.PlayerType.Hacker)
         {
-            int cameraID = (int)eventData.CustomData; //converts network data 
-
-            //TODO: include some sort of null condition checker for CustomData
-            cameras[currentEnabledCamera].isActive = false; //actually switches camera feed
-            cameras[cameraID].isActive = true;
-            currentEnabledCamera = cameraID;
+            if (Input.GetKeyDown(KeyCode.RightArrow) && currentEnabledCamera < cameras.Count - 1)
+            {
+                currentEnabledCamera++;
+                NextCamera();
+                //Insert MP data request code
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && currentEnabledCamera > 0)
+            {
+                currentEnabledCamera--;
+                Previous();
+                //Insert MP data request code
+            }
         }
     }
 
+    public void NextCamera()
+    {
+        cameras[currentEnabledCamera - 1].DeactivateCamera(); //actually switches camera feed
+        cameras[currentEnabledCamera].ActivateCamera();
+    }
+
+    public void Previous()
+    {
+        cameras[currentEnabledCamera + 1].DeactivateCamera(); //actually switches camera feed
+        cameras[currentEnabledCamera].ActivateCamera();
+    }
+
     //Network subs
-    private void OnEnable()
+    /*private void OnEnable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += DisableCameraView;
         PhotonNetwork.NetworkingClient.EventReceived += EnableCameraView;
@@ -55,5 +79,5 @@ public class SecurityCameraManager : MonoBehaviour
         PhotonNetwork.NetworkingClient.EventReceived -= DisableCameraView;
         PhotonNetwork.NetworkingClient.EventReceived -= EnableCameraView;
         PhotonNetwork.NetworkingClient.EventReceived -= SwitchCamera;
-    }
+    }*/
 }
