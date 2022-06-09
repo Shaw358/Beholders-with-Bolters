@@ -23,6 +23,7 @@ public class MinigameTrigger : InteractableBase
         symbolImage.enabled = true;
         symbolImage.sprite = MiniGameSpawner.instance.GetSymbolMatchingMinigameInfo().correctSymbol;
         PhotonNetwork.RaiseEvent(NetworkingIDs.MINIGAMESPAWNER, null, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        DisableInteractButton();
     }
 
     public void SuccesfulMinigame(EventData eventData)
@@ -30,8 +31,8 @@ public class MinigameTrigger : InteractableBase
         if (eventData.Code == NetworkingIDs.MINIGAME && isActive)
         {
             onSuccesfulMinigame?.Invoke();
+            PhotonNetwork.RaiseEvent(NetworkingIDs.ENABLE_CAMERA_FEED, null, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
         }
-        PhotonNetwork.RaiseEvent(NetworkingIDs.ENABLE_CAMERA_FEED, null, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     private void OnEnable()
