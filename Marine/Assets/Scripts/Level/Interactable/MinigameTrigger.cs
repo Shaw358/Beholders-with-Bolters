@@ -14,17 +14,17 @@ public class MinigameTrigger : InteractableBase
     private void Start()
     {
         canShowInteractButton = true;
+        Interact();
     }
 
     public override void Interact()
     {
         isActive = true;
         canShowInteractButton = false;
-        if (canInteract)
-        {
-            symbolImage.sprite = MiniGameSpawner.instance.GetSymbolMatchingMinigameInfo().correctSymbol;
-        }
 
+        symbolImage.enabled = true;
+
+        symbolImage.sprite = MiniGameSpawner.instance.GetSymbolMatchingMinigameInfo().correctSymbol;
         PhotonNetwork.RaiseEvent(NetworkingIDs.MINIGAMESPAWNER, null, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
