@@ -51,6 +51,7 @@ public class SymbolMatching : MonoBehaviour
             coolDownText.text = "Incorrect Symbol! Rebooting in: " + Mathf.Round(cooldown).ToString();
             yield return null;
         }
+        coolDownText.text = "Rebooted!";
         canGuess = true;
     }
 }
