@@ -133,8 +133,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraID: 0
   cameraFeed: {fileID: 8474386059450325727}
-  minRotAngle: 40
-  maxRotAngle: 130
+  minRotAngle: 250
+  maxRotAngle: 340
   rotationDuration: 8
   isActive: 1
 --- !u!114 &8474386059450325727

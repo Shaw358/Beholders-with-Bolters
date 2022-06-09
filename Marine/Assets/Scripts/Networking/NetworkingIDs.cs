@@ -8,6 +8,8 @@ public static class NetworkingIDs
     public static byte LOBBY_MENU = 5;
     public static byte DEBUGGING = 6;
 
+    public static byte ENABLE_CAMERA_FEED = 22;
+
     public static byte MINIGAME = 24;
     public static byte MINIGAMESPAWNER = 44;
 }

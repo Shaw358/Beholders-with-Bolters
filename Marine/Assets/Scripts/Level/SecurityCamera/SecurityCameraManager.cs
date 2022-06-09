@@ -9,29 +9,17 @@ public class SecurityCameraManager : MonoBehaviour
     [SerializeField] List<SecurityCamera> cameras = new List<SecurityCamera>();
     [SerializeField] UpdateScreen updateScreen;
     int currentEnabledCamera;
+
+    bool isEnabled;
     #endregion
 
-    /*public void DisableCameraView(EventData eventData)
-    {
-        if (eventData.Code == NetworkingIDs.DISABLE_CAMERA)
-        {
-            cameras[currentEnabledCamera].isActive = false;
-        }
-    }
-
-    public void EnableCameraView(EventData eventData)
-    {
-        if (eventData.Code == NetworkingIDs.ENABLE_CAMERA)
-        {
-            int cameraID = (int)eventData.CustomData;
-            cameras[cameraID].isActive = true;
-            currentEnabledCamera = cameraID;
-        }
-    }*/
     private void Update()
     {
-        updateScreen.ReceiveFrameData(cameras[currentEnabledCamera].cameraFeed.GetImageFromCameraAsTexture2D());
-        CheckInput();
+        if (isEnabled)
+        {
+            updateScreen.ReceiveFrameData(cameras[currentEnabledCamera].cameraFeed.GetImageFromCameraAsTexture2D());
+            CheckInput();
+        }
     }
 
     void CheckInput()
@@ -65,19 +53,23 @@ public class SecurityCameraManager : MonoBehaviour
         cameras[currentEnabledCamera].ActivateCamera();
     }
 
-    //Network subs
-    /*private void OnEnable()
+    public void Enable(EventData eventData)
     {
-        PhotonNetwork.NetworkingClient.EventReceived += DisableCameraView;
-        PhotonNetwork.NetworkingClient.EventReceived += EnableCameraView;
-        PhotonNetwork.NetworkingClient.EventReceived += SwitchCamera;
+        if (eventData.Code == NetworkingIDs.ENABLE_CAMERA_FEED)
+        {
+            isEnabled = true;
+        }
+    }
+
+    //Network subs
+    private void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += Enable;
     }
 
     //Remove subscribers
     private void OnDisable()
     {
-        PhotonNetwork.NetworkingClient.EventReceived -= DisableCameraView;
-        PhotonNetwork.NetworkingClient.EventReceived -= EnableCameraView;
-        PhotonNetwork.NetworkingClient.EventReceived -= SwitchCamera;
-    }*/
+        PhotonNetwork.NetworkingClient.EventReceived -= Enable;
+    }
 }

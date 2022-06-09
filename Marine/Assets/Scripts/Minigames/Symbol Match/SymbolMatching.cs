@@ -15,6 +15,7 @@ public class SymbolMatching : MonoBehaviour
 
     public void InitMinigame(SymbolMatchingMinigame newGameStats)
     {
+        gameObject.SetActive(true);
         gameStats = newGameStats;
         for (int index = 0; index < symbols.Length; index++)
         {
@@ -37,6 +38,7 @@ public class SymbolMatching : MonoBehaviour
         else
         {
             PhotonNetwork.RaiseEvent(NetworkingIDs.MINIGAME, null, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            gameObject.SetActive(false);
         }
     }
 

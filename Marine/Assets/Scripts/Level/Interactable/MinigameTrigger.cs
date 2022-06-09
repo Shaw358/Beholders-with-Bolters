@@ -31,6 +31,7 @@ public class MinigameTrigger : InteractableBase
         {
             onSuccesfulMinigame?.Invoke();
         }
+        PhotonNetwork.RaiseEvent(NetworkingIDs.ENABLE_CAMERA_FEED, null, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     private void OnEnable()

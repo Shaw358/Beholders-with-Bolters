@@ -62,7 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 99388afd39bbc0a42b2f01f1cd175ea3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1bd203562cbba6847b75581e1de4b3e4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
@@ -122,7 +122,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RimPower: 0
-    - _Rim_Light_Brightness: 1.1
+    - _Rim_Light_Brightness: 0.04
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
