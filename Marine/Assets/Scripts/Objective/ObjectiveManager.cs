@@ -11,14 +11,14 @@ public class ObjectiveManager : MonoSingleton<ObjectiveManager>
     [SerializeField] TextMeshProUGUI objectiveText;
     [SerializeField] AudioSource sourceSFX;
     [SerializeField] AudioClip typewriterSFX;
-    
+
     private IEnumerator UpdateObjectiveText()
     {
         float delay = .1f;
         currObjective++;
-        if (currObjective >= 0)
+        if (currObjective >= 1)
         {
-            objectives[currObjective].onObjectiveCompleted?.Invoke();
+            objectives[currObjective - 1].onObjectiveCompleted?.Invoke();
         }
 
         objectiveText.text = "Current Objective: ";
