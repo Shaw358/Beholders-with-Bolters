@@ -42,7 +42,7 @@ public class GuardMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!canMove || MultiplayerDataTracker.instance.player == MultiplayerDataTracker.PlayerType.Hacker)
+        if (!canMove /*|| MultiplayerDataTracker.instance.player == MultiplayerDataTracker.PlayerType.Hacker*/)
         {
             return;
         }
@@ -52,7 +52,7 @@ public class GuardMovement : MonoBehaviour
             switch (currentState)
             {
                 case GuardState.Patrolling:
-
+                    Debug.Log("bru");
                     MoveForward(walkSpeed);
                     gAnimator.PlayAnimation("guardWalk", false);
                     //Checkpoint
