@@ -14,7 +14,7 @@ public class MiniGameSpawner : MonoSingleton<MiniGameSpawner>
         if (eventData.Code == NetworkingIDs.MINIGAMESPAWNER)
         {
             matching.InitMinigame(symbolMinigames[0]);
-            symbolMinigames.RemoveAt(0);
+            RemoveSymbolMinigame();
         }
     }
 
@@ -26,6 +26,11 @@ public class MiniGameSpawner : MonoSingleton<MiniGameSpawner>
     public void SpawnPasswordMinigame()
     {
 
+    }
+
+    public void RemoveSymbolMinigame()
+    {
+        symbolMinigames.RemoveAt(0);
     }
 
     private void OnEnable()

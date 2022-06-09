@@ -8,4 +8,9 @@ using UnityEngine.Events;
 public class GameobjectButton : MonoBehaviour
 {
     [SerializeField] public UnityEvent onClick;
+
+    private void OnMouseDown()
+    {
+        onClick.Invoke();
+    }
 }

@@ -25,6 +25,7 @@ public class SymbolMatching : MonoBehaviour
 
     public void OnImageClick(int index)
     {
+        Debug.Log("It hurt so much");
         if(!canGuess)
         {
             return;
