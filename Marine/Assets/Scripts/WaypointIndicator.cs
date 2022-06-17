@@ -10,6 +10,6 @@ public class WaypointIndicator : MonoBehaviour
     {
         // Draw a semitransparent green cube at the transforms position
         Gizmos.color = myColor;
-        Gizmos.DrawSphere(transform.position, .8f);
+        Gizmos.DrawSphere(transform.position, .4f);
     }
 }

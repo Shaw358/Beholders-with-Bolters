@@ -52,11 +52,9 @@ public class GuardMovement : MonoBehaviour
             switch (currentState)
             {
                 case GuardState.Patrolling:
-                    Debug.Log("bru");
                     MoveForward(walkSpeed);
                     gAnimator.PlayAnimation("guardWalk", false);
                     //Checkpoint
-                    Debug.Log(Vector3.Distance(transform.position, currentWaypoint.position));
                     if (Vector3.Distance(transform.position, currentWaypoint.position) < .35f)
                     {
                         currentWaypoint = currentRoute.GetNextWaypoint(currentWaypoint);

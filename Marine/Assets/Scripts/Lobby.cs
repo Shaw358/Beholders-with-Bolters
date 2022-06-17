@@ -18,14 +18,14 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void LaunchGame()
     {
         PhotonNetwork.RaiseEvent(NetworkingIDs.LOBBY_MENU, isHacker, Photon.Realtime.RaiseEventOptions.Default, SendOptions.SendUnreliable);
-        SceneManager.LoadScene("BANKU");
+        SceneManager.LoadScene("BANKU 1");
     }
 
     public void ReceiveLaunchGame(EventData eventData)
     {
         if (eventData.Code == NetworkingIDs.LOBBY_MENU)
         {
-            SceneManager.LoadScene("BANKU");
+            SceneManager.LoadScene("BANKU 1");
         }
     }
 
